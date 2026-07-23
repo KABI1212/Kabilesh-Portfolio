@@ -3,6 +3,11 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 
+const toFiniteNumber = (value: number | string | undefined, fallback: number) => {
+  const numeric = typeof value === 'number' ? value : Number(value)
+  return Number.isFinite(numeric) ? numeric : fallback
+}
+
 /* ─────────────────────────────────────────
    PROJECT 1 — NOVA AI animation (price graph)
 ───────────────────────────────────────── */
@@ -46,10 +51,16 @@ function PriceCheckerAnim({ isVisible }: { isVisible: boolean }) {
         />
         {xs.map((x, i) => (
           <motion.circle
-            key={i} cx={x} cy={ys[i]} r="4"
+            key={i}
+            cx={toFiniteNumber(x, 0)}
+            cy={toFiniteNumber(ys[i], 0)}
+            r={toFiniteNumber(4, 4)}
             fill={i === points.indexOf(Math.min(...points)) ? '#34d399' : '#60a5fa'}
-            stroke="#0a0a0a" strokeWidth="2" initial={{ scale: 0 }}
-            animate={isVisible ? { scale: 1 } : { scale: 0 }} transition={{ delay: 0.3 + i * 0.15 }}
+            stroke="#0a0a0a"
+            strokeWidth="2"
+            initial={{ scale: 0 }}
+            animate={isVisible ? { scale: 1 } : { scale: 0 }}
+            transition={{ delay: 0.3 + i * 0.15 }}
           />
         ))}
         <motion.g
@@ -124,7 +135,12 @@ function AIPathfinderAnim({ isVisible }: { isVisible: boolean }) {
 
         {edges.map(([a, b], i) => (
           <motion.circle
-            key={`p${i}`} r="1.2" fill={nodes[a].color} opacity={0.8}
+            key={`p${i}`}
+            cx={toFiniteNumber(nodes[a].x, 0)}
+            cy={toFiniteNumber(nodes[a].y, 0)}
+            r={toFiniteNumber(1.2, 1.2)}
+            fill={nodes[a].color}
+            opacity={0.8}
             animate={isVisible ? { cx: [nodes[a].x, nodes[b].x], cy: [nodes[a].y, nodes[b].y] } : {}}
             transition={{ duration: 1.5, delay: i * 0.3, repeat: Infinity, repeatDelay: 1 }}
           />
@@ -133,12 +149,24 @@ function AIPathfinderAnim({ isVisible }: { isVisible: boolean }) {
         {nodes.map((n, i) => (
           <g key={i}>
             {i === active && (
-              <motion.circle cx={n.x} cy={n.y} r="8" fill={`url(#ng${i})`}
-                animate={isVisible ? { r: [6, 10, 6] } : {}} transition={{ duration: 1, repeat: Infinity }}
+              <motion.circle
+                cx={toFiniteNumber(n.x, 0)}
+                cy={toFiniteNumber(n.y, 0)}
+                r={toFiniteNumber(8, 8)}
+                fill={`url(#ng${i})`}
+                animate={isVisible ? { r: [6, 10, 6] } : {}}
+                transition={{ duration: 1, repeat: Infinity }}
               />
             )}
-            <circle cx={n.x} cy={n.y} r="5" fill={i === active ? n.color : 'rgba(255,255,255,0.08)'} stroke={n.color} strokeWidth="1" />
-            <text x={n.x} y={n.y + 10} textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="4.5" fontWeight="600">{n.label}</text>
+            <circle
+              cx={toFiniteNumber(n.x, 0)}
+              cy={toFiniteNumber(n.y, 0)}
+              r={toFiniteNumber(i === active ? 5 : 5, 5)}
+              fill={i === active ? n.color : 'rgba(255,255,255,0.08)'}
+              stroke={n.color}
+              strokeWidth="1"
+            />
+            <text x={toFiniteNumber(n.x, 0)} y={toFiniteNumber(n.y + 10, 0)} textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="4.5" fontWeight="600">{n.label}</text>
           </g>
         ))}
       </svg>
@@ -259,11 +287,17 @@ function EarthquakeAnim({ isVisible }: { isVisible: boolean }) {
 
         {/* Alert circle */}
         <motion.circle
-          cx={width - 30} cy={30} r="14" fill="none" stroke="#ef4444" strokeWidth="2"
-          initial={{ scale: 0, opacity: 0 }} animate={isVisible ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+          cx={toFiniteNumber(width - 30, 0)}
+          cy={toFiniteNumber(30, 0)}
+          r={toFiniteNumber(14, 14)}
+          fill="none"
+          stroke="#ef4444"
+          strokeWidth="2"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={isVisible ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
           transition={{ delay: 1.8 }}
         />
-        <text x={width - 30} y={34} textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="bold">
+        <text x={toFiniteNumber(width - 30, 0)} y={toFiniteNumber(34, 0)} textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="bold">
           ⚠️
         </text>
       </svg>

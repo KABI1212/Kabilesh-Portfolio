@@ -86,7 +86,7 @@ export default function SparkleBackground() {
         c.closePath()
         const g2 = c.createRadialGradient(cx, cy, 0, cx, cy, outer)
         g2.addColorStop(0, 'rgba(255,255,255,1)')
-        g2.addColorStop(0.5, 'rgba(196,181,253,0.8)')
+        g2.addColorStop(0.5, 'rgba(186, 173, 239, 0.8)')
         g2.addColorStop(1, 'rgba(139,92,246,0)')
         c.fillStyle = g2
         c.shadowBlur = s * 2

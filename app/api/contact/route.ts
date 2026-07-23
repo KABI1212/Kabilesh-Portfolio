@@ -1,8 +1,23 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+import { MongoClient } from 'mongodb'
 import { NextRequest, NextResponse } from 'next/server'
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'contact-submissions.json')
+export const runtime = 'nodejs'
+
+const uri = process.env.MONGODB_URI?.trim()
+const dbName = process.env.MONGODB_DB?.trim() || 'portfolio'
+let client: MongoClient | null = null
+
+function getClient() {
+  if (!uri) {
+    throw new Error('MONGODB_URI is not configured')
+  }
+
+  if (!client) {
+    client = new MongoClient(uri)
+  }
+
+  return client
+}
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
@@ -29,37 +44,47 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    const mongoClient = getClient()
+    await mongoClient.connect()
+    const db = mongoClient.db(dbName)
+    const collection = db.collection('contact_submissions')
+
     const entry = {
-      id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       name,
       email,
       message,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date(),
     }
 
-    await fs.mkdir(path.dirname(DATA_FILE), { recursive: true })
-
-    let existing: unknown[] = []
-    try {
-      const fileContent = await fs.readFile(DATA_FILE, 'utf8')
-      if (fileContent.trim()) {
-        const parsed = JSON.parse(fileContent)
-        existing = Array.isArray(parsed) ? parsed : []
-      }
-    } catch {
-      existing = []
-    }
-
-    existing.push(entry)
-    await fs.writeFile(DATA_FILE, JSON.stringify(existing, null, 2))
+    await collection.insertOne(entry)
 
     return NextResponse.json({ success: true, message: 'Message received successfully.' })
-  } catch (error) {
-    console.error('Contact submission error:', error)
+  } catch {
+    console.error('Contact submission error')
     return NextResponse.json(
       { success: false, error: 'Unable to store the message right now.' },
       { status: 500 }
     )
+  }
+}
+
+export async function GET(request: NextRequest) {
+  try {
+    const key = request.headers.get('x-admin-key') || request.nextUrl.searchParams.get('key')
+
+    if (key !== process.env.ADMIN_KEY) {
+      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const mongoClient = getClient()
+    await mongoClient.connect()
+    const db = mongoClient.db(dbName)
+    const submissions = await db.collection('contact_submissions').find({}).sort({ createdAt: -1 }).toArray()
+
+    return NextResponse.json({ success: true, submissions })
+  } catch {
+    console.error('Contact fetch error')
+    return NextResponse.json({ success: false, error: 'Unable to read submissions.' }, { status: 500 })
   }
 }
 
