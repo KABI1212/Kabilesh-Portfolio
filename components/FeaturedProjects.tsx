@@ -154,7 +154,8 @@ function AIPathfinderAnim({ isVisible }: { isVisible: boolean }) {
                 cy={toFiniteNumber(n.y, 0)}
                 r={toFiniteNumber(8, 8)}
                 fill={`url(#ng${i})`}
-                animate={isVisible ? { r: [6, 10, 6] } : {}}
+                initial={{ r: 6 }}
+                animate={isVisible ? { r: [6, 10, 6] } : { r: 6 }}
                 transition={{ duration: 1, repeat: Infinity }}
               />
             )}
