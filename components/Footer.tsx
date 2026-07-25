@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Logo from './logo/Logo'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -39,8 +40,10 @@ export default function Footer() {
   const navLinks = [
     { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
-    { label: 'Projects', href: '#projects' },
+    { label: 'Education', href: '#education' },
     { label: 'Skills', href: '#skills' },
+    { label: 'Certifications', href: '#certifications' },
+    { label: 'Projects', href: '#projects' },
     { label: 'Contact', href: '#contact' },
   ]
 
@@ -59,9 +62,7 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
             className="flex items-center gap-3"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-blue-500/30">
-              KK
-            </div>
+            <Logo animated={false} className="w-10 h-10" />
             <div>
               <p className="text-white font-semibold text-sm">
                 Kabilesh<span className="text-blue-400">.</span>

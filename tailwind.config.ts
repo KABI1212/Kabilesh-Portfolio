@@ -13,7 +13,7 @@ const config: Config = {
         accent: '#60a5fa',
       },
       fontFamily: {
-        sans: ['"Times New Roman"', 'Times', 'serif'],
+        sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
         calligraphy: ['"Times New Roman"', 'Times', 'serif'],
         luxury: ['"Playfair Display"', 'serif'],
         greatvibes: ['"Great Vibes"', 'cursive'],

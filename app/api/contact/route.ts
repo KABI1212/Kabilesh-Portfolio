@@ -213,7 +213,8 @@ export async function GET(request: NextRequest) {
   try {
     const key = request.headers.get('x-admin-key') || request.nextUrl.searchParams.get('key')
 
-    if (key !== process.env.ADMIN_KEY) {
+    const adminKey = process.env.ADMIN_KEY?.trim()
+    if (!adminKey || key !== adminKey) {
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
     }
 

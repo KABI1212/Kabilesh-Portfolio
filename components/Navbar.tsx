@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import Logo from './logo/Logo'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -17,6 +18,8 @@ export default function Navbar() {
     { label: 'Home', href: '#home' },
     { label: 'About', href: '#about' },
     { label: 'Education', href: '#education' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Certifications', href: '#certifications' },
     { label: 'Projects', href: '#projects' },
     { label: 'Contact', href: '#contact' },
   ]
@@ -33,10 +36,8 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-2 group">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-shadow duration-300">
-            KK
-          </div>
+        <a href="#home" className="flex items-center gap-3 group">
+          <Logo animated={true} className="w-[48px] h-[48px] sm:w-[56px] sm:h-[56px] md:w-[72px] md:h-[72px]" />
           <span className="text-white font-luxury italic text-xl tracking-tight hidden sm:block">
             Kabilesh<span className="text-blue-400">.</span>
           </span>
@@ -123,6 +124,7 @@ export default function Navbar() {
                 download="Kabilesh_K_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm font-medium hover:bg-blue-500/20 transition-all duration-200"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -134,6 +136,7 @@ export default function Navbar() {
             <li>
               <a
                 href="mailto:kabileshkoffl@gmail.com"
+                onClick={() => setMenuOpen(false)}
                 className="inline-block px-4 py-2 rounded-lg border border-blue-500/50 text-blue-400 text-sm font-medium hover:bg-blue-500/10 transition-all duration-200"
               >
                 Hire Me
