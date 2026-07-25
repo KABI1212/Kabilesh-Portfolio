@@ -13,10 +13,11 @@ const config: Config = {
         accent: '#60a5fa',
       },
       fontFamily: {
-        sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        sans: ['"Times New Roman"', 'Times', 'serif'],
+        serif: ['"Times New Roman"', 'Times', 'serif'],
         calligraphy: ['"Times New Roman"', 'Times', 'serif'],
-        luxury: ['"Playfair Display"', 'serif'],
-        greatvibes: ['"Great Vibes"', 'cursive'],
+        luxury: ['"Times New Roman"', 'Times', 'serif'],
+        greatvibes: ['"Times New Roman"', 'Times', 'serif'],
       },
       animation: {
         'marquee': 'marquee 25s linear infinite',
