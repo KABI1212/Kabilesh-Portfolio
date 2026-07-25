@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 const roles = [
-  'AI/ML Engineer',
+  'Computer Science and Engineering Student',
   'Software Developer',
-  'Problem Solver',
+  'Fullstack Developer',
+  'AI Developer',
 ]
 
 export default function Hero() {
@@ -68,17 +69,56 @@ export default function Hero() {
               Hello! I Am
             </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4"
-            >
-              <span className="font-calligraphy text-6xl sm:text-7xl lg:text-8xl font-normal">Kabilesh</span>{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-300 font-calligraphy text-6xl sm:text-7xl lg:text-8xl font-normal">
-                K
-              </span>
-            </motion.h1>
+            <div className="flex flex-col items-center lg:items-start mb-6">
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.35 }}
+                className="font-greatvibes text-[5.5rem] sm:text-[7rem] lg:text-[8.5rem] font-normal leading-none"
+                style={{
+                  background: 'linear-gradient(to right, #bf953f 0%, #fcf6ba 25%, #d4af37 50%, #fbf5b7 75%, #aa771c 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  paddingRight: '0.1em'
+                }}
+              >
+                Kabilesh
+              </motion.h1>
+              
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.45 }}
+                className="mt-1 w-full max-w-[280px] lg:max-w-[340px] flex justify-center lg:justify-start pl-2 lg:pl-4"
+              >
+                <svg width="100%" height="20" viewBox="0 0 300 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Left and right lines */}
+                  <path d="M0 10 L 130 10" stroke="url(#goldGrad)" strokeWidth="1" />
+                  <path d="M170 10 L 300 10" stroke="url(#goldGrad)" strokeWidth="1" />
+                  
+                  {/* Center diamond */}
+                  <path d="M150 4 L 153 10 L 150 16 L 147 10 Z" fill="url(#goldGrad)" />
+                  
+                  {/* Left and right dots */}
+                  <circle cx="140" cy="10" r="1.5" fill="url(#goldGrad)" />
+                  <circle cx="160" cy="10" r="1.5" fill="url(#goldGrad)" />
+                  
+                  {/* Decorative Swirls */}
+                  <path d="M135 10 Q 142 3 147 10 Q 142 17 135 10" stroke="url(#goldGrad)" strokeWidth="0.8" fill="none" />
+                  <path d="M165 10 Q 158 3 153 10 Q 158 17 165 10" stroke="url(#goldGrad)" strokeWidth="0.8" fill="none" />
+                  
+                  <defs>
+                    <linearGradient id="goldGrad" x1="0" y1="0" x2="300" y2="0" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stopColor="#bf953f" />
+                      <stop offset="25%" stopColor="#fcf6ba" />
+                      <stop offset="50%" stopColor="#d4af37" />
+                      <stop offset="75%" stopColor="#fbf5b7" />
+                      <stop offset="100%" stopColor="#aa771c" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </motion.div>
+            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}

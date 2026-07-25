@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
-const roles = ['AI/ML Engineer', 'Full Stack Web Developer', 'Problem Solver']
+const roles = ['Computer Science and Engineering Student', 'Software Developer', 'Fullstack Developer', 'AI Developer']
 
 export default function About() {
   const sectionRef = useRef(null)

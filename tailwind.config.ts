@@ -15,6 +15,8 @@ const config: Config = {
       fontFamily: {
         sans: ['"Times New Roman"', 'Times', 'serif'],
         calligraphy: ['"Times New Roman"', 'Times', 'serif'],
+        luxury: ['"Playfair Display"', 'serif'],
+        greatvibes: ['"Great Vibes"', 'cursive'],
       },
       animation: {
         'marquee': 'marquee 25s linear infinite',

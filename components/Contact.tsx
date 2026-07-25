@@ -26,7 +26,7 @@ function FloatingField({
   label,
   name,
   type = 'text',
-  required = true,
+  required = false,
   value,
   onChange,
   onBlur,
@@ -54,17 +54,16 @@ function FloatingField({
       <label
         htmlFor={name}
         className={`absolute left-4 transition-all duration-200 pointer-events-none select-none z-10 ${
-          isActive ? 'top-2 text-[10px] text-blue-400' : 'top-3 text-sm text-[#555]'
+          isActive ? 'top-2 text-[10px] text-blue-400 font-semibold' : 'top-3.5 text-sm text-[#666]'
         }`}
       >
-        {label}
+        {label} {required && <span className="text-blue-400">*</span>}
       </label>
       <Component
         ref={inputRef as any}
         id={name}
         name={name}
-        type={type}
-        required={required}
+        type={type === 'textarea' ? undefined : type}
         value={value}
         onChange={onChange}
         onFocus={() => setFocused(true)}
@@ -72,24 +71,28 @@ function FloatingField({
           setFocused(false)
           onBlur?.(e)
         }}
-        rows={type === 'textarea' ? 5 : undefined}
+        rows={type === 'textarea' ? 4 : undefined}
         maxLength={maxLength}
-        autoComplete={name === 'email' ? 'email' : name === 'name' ? 'name' : undefined}
+        autoComplete={
+          name === 'email' ? 'email' : name === 'name' ? 'name' : name === 'phone' ? 'tel' : name === 'company' ? 'organization' : undefined
+        }
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${name}-error` : undefined}
         className={`w-full px-4 pt-5 pb-3 rounded-xl bg-[#111] border transition-all duration-200 text-white text-sm placeholder-transparent focus:outline-none ${
-          error ? 'border-red-500/60 focus:border-red-400' : 'border-white/[0.08] focus:border-blue-500/50 focus:bg-blue-500/5'
+          error ? 'border-red-500/60 focus:border-red-400 bg-red-500/5' : 'border-white/[0.08] focus:border-blue-500/50 focus:bg-blue-500/5'
         } ${type === 'textarea' ? 'resize-none' : ''}`}
         style={{ lineHeight: '1.5' }}
       />
       {error && (
-        <p className="mt-1 text-xs text-red-400 flex items-center gap-1">
-          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+        <p id={`${name}-error`} className="mt-1 text-xs text-red-400 flex items-center gap-1">
+          <svg className="w-3 h-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clipRule="evenodd" />
           </svg>
           {error}
         </p>
       )}
       {maxLength && (
-        <span className="absolute bottom-2 right-3 text-[10px] text-[#444]">
+        <span className="absolute bottom-2 right-3 text-[10px] text-[#444] pointer-events-none select-none">
           {value.length}/{maxLength}
         </span>
       )}
@@ -106,24 +109,43 @@ interface Particle {
   delay: number
 }
 
+interface FormState {
+  name: string
+  email: string
+  subject: string
+  phone: string
+  company: string
+  message: string
+  website_url: string // Honeypot field
+}
+
 export default function Contact() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [form, setForm] = useState<FormState>({
+    name: '',
+    email: '',
+    subject: '',
+    phone: '',
+    company: '',
+    message: '',
+    website_url: '',
+  })
+
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
-  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({})
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [copied, setCopied] = useState(false)
   const [particles, setParticles] = useState<Particle[]>([])
 
-  // ✅ Generate random particles ONLY on the client (after mount)
   useEffect(() => {
     const arr: Particle[] = Array.from({ length: 6 }).map(() => ({
       width: 4 + Math.random() * 6,
       height: 4 + Math.random() * 6,
       top: `${Math.random() * 100}%`,
       left: `${Math.random() * 100}%`,
-      delay: Math.random() * 2, // used to stagger animations
+      delay: Math.random() * 2,
     }))
     setParticles(arr)
   }, [])
@@ -131,48 +153,76 @@ export default function Contact() {
   const email = 'kabileshkoffl@gmail.com'
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    setErrors((prev) => ({ ...prev, [e.target.name]: undefined }))
+    const { name, value } = e.target
+    setForm((prev) => ({ ...prev, [name]: value }))
+    setErrors((prev) => ({ ...prev, [name]: '' }))
     if (status === 'error') setStatus('idle')
   }
 
-  const validateField = (name: string, value: string): string | undefined => {
-    if (name === 'name' && !value.trim()) return 'Name is required'
-    if (name === 'email') {
-      if (!value.trim()) return 'Email is required'
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Invalid email format'
+  const validateSingleField = (name: string, value: string): string => {
+    if (name === 'name') {
+      if (!value.trim()) return 'Name is required'
+      if (value.trim().length < 2) return 'Name must be at least 2 characters'
     }
-    if (name === 'message' && !value.trim()) return 'Message is required'
-    return undefined
+    if (name === 'email') {
+      if (!value.trim()) return 'Email address is required'
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) return 'Please enter a valid email address'
+    }
+    if (name === 'phone' && value.trim()) {
+      const cleanPhone = value.replace(/[\s\-\(\)\+]/g, '')
+      if (!/^\d{7,15}$/.test(cleanPhone)) return 'Please enter a valid phone number'
+    }
+    if (name === 'message') {
+      if (!value.trim()) return 'Message is required'
+      if (value.trim().length < 10) return 'Message must be at least 10 characters'
+    }
+    return ''
   }
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
-    const err = validateField(name, value)
-    setErrors((prev) => ({ ...prev, [name]: err }))
+    const err = validateSingleField(name, value)
+    if (err) {
+      setErrors((prev) => ({ ...prev, [name]: err }))
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    const newErrors = {
-      name: validateField('name', form.name),
-      email: validateField('email', form.email),
-      message: validateField('message', form.message),
+    const newErrors: Record<string, string> = {
+      name: validateSingleField('name', form.name),
+      email: validateSingleField('email', form.email),
+      phone: validateSingleField('phone', form.phone),
+      message: validateSingleField('message', form.message),
     }
-    setErrors(newErrors)
-    if (newErrors.name || newErrors.email || newErrors.message) {
+
+    // Filter empty error strings
+    const activeErrors: Record<string, string> = {}
+    Object.keys(newErrors).forEach((key) => {
+      if (newErrors[key]) activeErrors[key] = newErrors[key]
+    })
+
+    setErrors(activeErrors)
+
+    if (Object.keys(activeErrors).length > 0) {
       setStatus('error')
+      setErrorMessage('Please correct the highlighted errors before submitting.')
       return
     }
 
     setStatus('sending')
+    setErrorMessage('')
 
     try {
       const payload = {
         name: form.name.trim(),
         email: form.email.trim(),
+        subject: form.subject.trim() || 'Portfolio Contact Request',
+        phone: form.phone.trim(),
+        company: form.company.trim(),
         message: form.message.trim(),
+        website_url: form.website_url, // Honeypot
       }
 
       const response = await fetch('/api/contact', {
@@ -187,13 +237,23 @@ export default function Contact() {
       const data = await response.json().catch(() => ({}))
 
       if (!response.ok || !data?.success) {
-        throw new Error(data?.error || 'Unable to send message')
+        throw new Error(data?.error || 'Unable to send message at this time.')
       }
 
       setStatus('sent')
-      setForm({ name: '', email: '', message: '' })
-    } catch {
+      setForm({
+        name: '',
+        email: '',
+        subject: '',
+        phone: '',
+        company: '',
+        message: '',
+        website_url: '',
+      })
+      setErrors({})
+    } catch (err: any) {
       setStatus('error')
+      setErrorMessage(err?.message || 'Failed to send message. Please try emailing directly.')
     }
   }
 
@@ -251,7 +311,6 @@ export default function Contact() {
           animate={{ scale: [1, 1.2, 1], x: [0, 20, 0] }}
           transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
         />
-        {/* Render particles only after they are generated on the client */}
         {particles.map((p, i) => (
           <motion.div
             key={i}
@@ -322,7 +381,6 @@ export default function Contact() {
                 whileHover={{ y: -2 }}
                 className="group relative rounded-xl bg-[#111] border border-white/[0.08] p-4 flex items-center gap-4 transition-all duration-300"
               >
-                {/* Glow border on hover */}
                 <div
                   className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   style={{
@@ -406,20 +464,35 @@ export default function Contact() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="space-y-5"
+            noValidate
           >
+            {/* Honeypot field (hidden from real users, tricks spam bots) */}
+            <div className="hidden" aria-hidden="true">
+              <input
+                type="text"
+                name="website_url"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.website_url}
+                onChange={handleChange}
+              />
+            </div>
+
             <div className="grid sm:grid-cols-2 gap-5">
               <FloatingField
-                label="Name *"
+                label="Full Name"
                 name="name"
+                required
                 value={form.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={errors.name}
               />
               <FloatingField
-                label="Email *"
+                label="Email Address"
                 name="email"
                 type="email"
+                required
                 value={form.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -427,29 +500,60 @@ export default function Contact() {
               />
             </div>
 
+            <div className="grid sm:grid-cols-2 gap-5">
+              <FloatingField
+                label="Phone Number"
+                name="phone"
+                type="tel"
+                value={form.phone}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.phone}
+              />
+              <FloatingField
+                label="Company / Organization"
+                name="company"
+                value={form.company}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.company}
+              />
+            </div>
+
             <FloatingField
-              label="Message *"
+              label="Subject"
+              name="subject"
+              value={form.subject}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={errors.subject}
+              maxLength={150}
+            />
+
+            <FloatingField
+              label="Message"
               name="message"
               type="textarea"
+              required
               value={form.message}
               onChange={handleChange}
               onBlur={handleBlur}
               error={errors.message}
-              maxLength={500}
+              maxLength={1000}
             />
 
             <button
               type="submit"
-              disabled={status === 'sending' || status === 'sent'}
-              className="relative w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold text-sm hover:from-blue-500 hover:to-cyan-400 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:from-blue-600 disabled:hover:to-blue-500 hover:-translate-y-0.5 disabled:hover:translate-y-0"
+              disabled={status === 'sending'}
+              className="relative w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold text-sm hover:from-blue-500 hover:to-cyan-400 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 disabled:opacity-70 disabled:cursor-not-allowed hover:-translate-y-0.5 disabled:hover:translate-y-0"
             >
               {status === 'sending' ? (
                 <span className="flex items-center justify-center gap-2">
-                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                  <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r={10} stroke="currentColor" strokeWidth="4" fill="none" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
-                  Sending...
+                  Sending Message...
                 </span>
               ) : status === 'sent' ? (
                 <motion.span
@@ -457,10 +561,10 @@ export default function Contact() {
                   animate={{ scale: 1 }}
                   className="flex items-center justify-center gap-2"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Sent!
+                  Message Sent!
                 </motion.span>
               ) : (
                 'Send Message'
@@ -469,30 +573,35 @@ export default function Contact() {
 
             <AnimatePresence>
               {status === 'sent' && (
-                <motion.p
+                <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="text-green-400 text-xs text-center flex items-center justify-center gap-1"
+                  className="p-4 rounded-xl border border-green-500/30 bg-green-500/10 text-green-300 text-xs text-center flex flex-col items-center gap-1.5"
                 >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  Thank you! I&apos;ll get back to you soon.
-                </motion.p>
+                  <div className="flex items-center gap-2 font-semibold">
+                    <svg className="w-4 h-4 text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                    Thank you! Your message has been received.
+                  </div>
+                  <p className="text-[11px] text-green-300/80">
+                    An automated confirmation has been sent to your email. I will respond to your message as soon as possible!
+                  </p>
+                </motion.div>
               )}
               {status === 'error' && (
-                <motion.p
+                <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  className="text-red-400 text-xs text-center flex items-center justify-center gap-1"
+                  className="p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-300 text-xs text-center flex items-center justify-center gap-2"
                 >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-4 h-4 text-red-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
-                  Unable to send. Please email me directly.
-                </motion.p>
+                  <span>{errorMessage || 'Unable to send message. Please email kabileshkoffl@gmail.com directly.'}</span>
+                </motion.div>
               )}
             </AnimatePresence>
           </motion.form>

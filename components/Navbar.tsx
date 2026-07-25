@@ -26,11 +26,10 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? 'bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5 shadow-lg'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
@@ -38,7 +37,7 @@ export default function Navbar() {
           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-shadow duration-300">
             KK
           </div>
-          <span className="text-white font-semibold text-lg tracking-tight hidden sm:block">
+          <span className="text-white font-luxury italic text-xl tracking-tight hidden sm:block">
             Kabilesh<span className="text-blue-400">.</span>
           </span>
         </a>

@@ -16,5 +16,22 @@
     "email": "kabileshk702@gmail.com",
     "message": "Hi",
     "createdAt": "2026-07-25T08:23:42.926Z"
+  },
+  {
+    "name": "Sarah Jenkins",
+    "email": "sarah.jenkins@techcorp.com",
+    "subject": "Senior Software Engineer Role Inquiry",
+    "phone": "+1 (555) 234-5678",
+    "company": "TechCorp Solutions",
+    "message": "Hello Kabilesh, we reviewed your portfolio and were very impressed with your AI and fullstack projects. We would love to discuss a developer role with you!",
+    "createdAt": "2026-07-25T09:02:03.797Z",
+    "ip": "::1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ContactAuditTest/1.0",
+    "emailStatus": {
+      "notificationSent": false,
+      "autoReplySent": false,
+      "provider": "none",
+      "error": null
+    }
   }
 ]
