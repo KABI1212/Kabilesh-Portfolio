@@ -33,5 +33,39 @@
       "provider": "none",
       "error": null
     }
+  },
+  {
+    "name": "Kabi",
+    "email": "kabileshk702@gmail.com",
+    "subject": "Portfolio Contact Request",
+    "phone": "9655274378",
+    "company": "",
+    "message": "Hi\nhow are you\nsndufiud",
+    "createdAt": "2026-07-25T09:06:44.958Z",
+    "ip": "::1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0",
+    "emailStatus": {
+      "notificationSent": false,
+      "autoReplySent": false,
+      "provider": "none",
+      "error": null
+    }
+  },
+  {
+    "name": "Kabi",
+    "email": "kabileshk702@gmail.com",
+    "subject": "maths",
+    "phone": "9655274378",
+    "company": "",
+    "message": "maths mark 67",
+    "createdAt": "2026-07-25T09:19:46.103Z",
+    "ip": "::1",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0",
+    "emailStatus": {
+      "notificationSent": true,
+      "autoReplySent": true,
+      "provider": "smtp",
+      "error": null
+    }
   }
 ]

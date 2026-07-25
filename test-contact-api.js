@@ -1,6 +1,7 @@
 // Integration test script for Portfolio Contact API
 const http = require('http')
 
+// @ts-ignore
 function makeRequest(options, postData) {
   return new Promise((resolve, reject) => {
     const req = http.request(options, (res) => {
