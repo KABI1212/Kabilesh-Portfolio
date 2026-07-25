@@ -76,7 +76,7 @@ function FloatingField({
         maxLength={maxLength}
         autoComplete={name === 'email' ? 'email' : name === 'name' ? 'name' : undefined}
         className={`w-full px-4 pt-5 pb-3 rounded-xl bg-[#111] border transition-all duration-200 text-white text-sm placeholder-transparent focus:outline-none ${
-          error ? 'border-red-500/60 focus:border-red-400' : 'border-white/8 focus:border-blue-500/50 focus:bg-blue-500/5'
+          error ? 'border-red-500/60 focus:border-red-400' : 'border-white/[0.08] focus:border-blue-500/50 focus:bg-blue-500/5'
         } ${type === 'textarea' ? 'resize-none' : ''}`}
         style={{ lineHeight: '1.5' }}
       />
@@ -320,7 +320,7 @@ export default function Contact() {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
                 whileHover={{ y: -2 }}
-                className="group relative rounded-xl bg-[#111] border border-white/8 p-4 flex items-center gap-4 transition-all duration-300"
+                className="group relative rounded-xl bg-[#111] border border-white/[0.08] p-4 flex items-center gap-4 transition-all duration-300"
               >
                 {/* Glow border on hover */}
                 <div

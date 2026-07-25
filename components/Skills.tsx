@@ -43,7 +43,7 @@ function MarqueeRow({ items, reverse = false }: { items: typeof skillsRow1; reve
         {[...items, ...items].map((skill, i) => (
           <div
             key={`${skill.name}-${i}`}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#111] border border-white/8 hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-200 cursor-default flex-shrink-0"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#111] border border-white/[0.08] hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-200 cursor-default flex-shrink-0"
           >
             <span className="text-lg">{skill.icon}</span>
             <span className="text-[#888] text-sm font-medium whitespace-nowrap hover:text-white transition-colors">

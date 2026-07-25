@@ -188,7 +188,7 @@ export default function Education() {
                       <motion.span
                         key={h}
                         whileHover={{ scale: 1.1, backgroundColor: `rgba(${hexToRgb(item.accent)},0.2)`, borderColor: item.accent }}
-                        className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/8 text-[#888] text-xs font-medium transition-colors cursor-default"
+                        className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/[0.08] text-[#888] text-xs font-medium transition-colors cursor-default"
                         style={{ transition: 'background-color 0.2s, border-color 0.2s' }}
                       >
                         {h}
@@ -202,13 +202,6 @@ export default function Education() {
         </div>
       </div>
 
-      {/* Inject keyframes for shimmer */}
-      <style jsx global>{`
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-      `}</style>
     </section>
   )
 }

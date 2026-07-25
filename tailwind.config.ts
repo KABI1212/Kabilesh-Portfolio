@@ -13,8 +13,8 @@ const config: Config = {
         accent: '#60a5fa',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        calligraphy: ['var(--font-great-vibes)', 'cursive'],
+        sans: ['"Times New Roman"', 'Times', 'serif'],
+        calligraphy: ['"Times New Roman"', 'Times', 'serif'],
       },
       animation: {
         'marquee': 'marquee 25s linear infinite',

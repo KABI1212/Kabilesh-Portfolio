@@ -105,7 +105,7 @@ export default function Footer() {
                 target={s.href.startsWith('http') ? '_blank' : undefined}
                 rel="noopener noreferrer"
                 aria-label={s.label}
-                className="w-8 h-8 rounded-lg bg-[#111] border border-white/8 flex items-center justify-center text-[#555] hover:text-blue-400 hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-200"
+                className="w-8 h-8 rounded-lg bg-[#111] border border-white/[0.08] flex items-center justify-center text-[#555] hover:text-blue-400 hover:border-blue-500/30 hover:bg-blue-500/5 transition-all duration-200"
               >
                 {s.icon}
               </a>

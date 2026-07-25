@@ -9,84 +9,122 @@ const toFiniteNumber = (value: number | string | undefined, fallback: number) =>
 }
 
 /* ─────────────────────────────────────────
-   PROJECT 1 — NOVA AI animation (price graph)
+   PROJECT 1 — NOVA AI chatbot-style animation
 ───────────────────────────────────────── */
 function PriceCheckerAnim({ isVisible }: { isVisible: boolean }) {
-  const points = [60, 80, 55, 90, 45, 70, 35, 50, 28]
-  const w = 320, h = 180
-  const xs = points.map((_, i) => (i / (points.length - 1)) * (w - 40) + 20)
-  const ys = points.map((p) => h - 20 - (p / 100) * (h - 40))
-  const path = xs.map((x, i) => `${i === 0 ? 'M' : 'L'}${x},${ys[i]}`).join(' ')
-  const area = `${path} L${xs[xs.length - 1]},${h - 20} L${xs[0]},${h - 20} Z`
+  const messages = [
+    { from: 'bot', text: 'Hi, I’m NOVA AI — I can help with planning, workflows, and instant answers.' },
+    { from: 'user', text: 'Show me the latest project progress and the next action items.' },
+    { from: 'bot', text: 'Absolutely — I’ll organize it into priorities, blockers, and clean next steps.' },
+  ]
 
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-      <svg className="absolute inset-0 w-full h-full opacity-10" viewBox={`0 0 ${w} ${h}`}>
-        {[0, 1, 2, 3].map((i) => (
-          <line key={i} x1="20" y1={20 + i * 40} x2={w - 20} y2={20 + i * 40} stroke="white" strokeWidth="0.5" strokeDasharray="4 4" />
-        ))}
-      </svg>
-
-      <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-full">
-        <defs>
-          <linearGradient id="priceGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#2563eb" stopOpacity="0" />
-          </linearGradient>
-          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#60a5fa" />
-            <stop offset="100%" stopColor="#34d399" />
-          </linearGradient>
-        </defs>
-
-        <motion.path
-          d={area} fill="url(#priceGrad)" initial={{ opacity: 0 }}
-          animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        />
-        <motion.path
-          d={path} fill="none" stroke="url(#lineGrad)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-          initial={{ pathLength: 0 }} animate={isVisible ? { pathLength: 1 } : { pathLength: 0 }}
-          transition={{ duration: 2, ease: 'easeInOut' }}
-        />
-        {xs.map((x, i) => (
-          <motion.circle
-            key={i}
-            cx={toFiniteNumber(x, 0)}
-            cy={toFiniteNumber(ys[i], 0)}
-            r={toFiniteNumber(4, 4)}
-            fill={i === points.indexOf(Math.min(...points)) ? '#34d399' : '#60a5fa'}
-            stroke="#0a0a0a"
-            strokeWidth="2"
-            initial={{ scale: 0 }}
-            animate={isVisible ? { scale: 1 } : { scale: 0 }}
-            transition={{ delay: 0.3 + i * 0.15 }}
-          />
-        ))}
-        <motion.g
-          initial={{ y: -30, opacity: 0 }} animate={isVisible ? { y: 0, opacity: 1 } : { y: -30, opacity: 0 }}
-          transition={{ delay: 1.8, type: 'spring', stiffness: 200 }}
-        >
-          <rect x="210" y="8" width="90" height="28" rx="8" fill="rgba(52,211,153,0.2)" stroke="rgba(52,211,153,0.5)" strokeWidth="1" />
-          <text x="255" y="27" textAnchor="middle" fill="#34d399" fontSize="11" fontWeight="bold">↓ Price Drop!</text>
-        </motion.g>
-        {['AMZ', 'FLK', 'MSH'].map((label, i) => (
-          <motion.g key={label} initial={{ opacity: 0 }} animate={isVisible ? { opacity: 1 } : { opacity: 0 }} transition={{ delay: 2.2 + i * 0.15 }}>
-            <rect x={20 + i * 40} y={h - 18} width="28" height="14" rx="4" fill="rgba(139,92,246,0.2)" stroke="rgba(139,92,246,0.3)" strokeWidth="0.8" />
-            <text x={34 + i * 40} y={h - 7} textAnchor="middle" fill="#60a5fa" fontSize="7" fontWeight="600">{label}</text>
-          </motion.g>
-        ))}
-      </svg>
+      <motion.div
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.8 }}
+        style={{
+          background:
+            'radial-gradient(circle at 25% 20%, rgba(34,211,238,0.26), transparent 32%), radial-gradient(circle at 78% 12%, rgba(59,130,246,0.18), transparent 28%), radial-gradient(circle at 50% 100%, rgba(14,165,233,0.18), transparent 40%)',
+        }}
+      />
 
       <motion.div
-        className="absolute bottom-4 right-4 rounded-xl px-3 py-2 text-xs"
-        style={{ background: 'rgba(52,211,153,0.15)', border: '1px solid rgba(52,211,153,0.35)', backdropFilter: 'blur(8px)' }}
-        initial={{ opacity: 0, scale: 0.8, y: 10 }}
-        animate={isVisible ? { opacity: [0, 1, 1, 0], scale: [0.8, 1, 1, 0.8], y: [10, 0, 0, -10] } : { opacity: 0 }}
-        transition={{ duration: 3, delay: 2.5, repeat: Infinity, repeatDelay: 2 }}
+        className="relative w-[82%] h-[82%] rounded-[30px] border border-cyan-300/20 bg-slate-950/85 shadow-[0_0_0_1px_rgba(56,189,248,0.08),0_20px_60px_rgba(14,165,233,0.18)]"
+        initial={{ opacity: 0, scale: 0.94, y: 12 }}
+        animate={isVisible ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.94, y: 12 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        <p className="text-emerald-400 font-semibold">📧 Alert Sent!</p>
-        <p className="text-white/50" style={{ fontSize: 9 }}>Price dropped ₹500</p>
+        <div className="flex items-center justify-between border-b border-cyan-400/10 px-4 py-3">
+          <div className="flex items-center gap-2">
+            <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-cyan-400/15 ring-1 ring-cyan-300/35">
+              <span className="h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.9)]" />
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.28em] text-cyan-200/70">NOVA AI</div>
+              <div className="text-[9px] text-cyan-100/55">assistant</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5 rounded-full bg-cyan-400/10 px-2 py-1 text-[9px] text-cyan-100/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
+            online
+          </div>
+        </div>
+
+        <div className="space-y-3 px-4 py-4">
+          {messages.map((message, i) => (
+            <motion.div
+              key={`${message.from}-${i}`}
+              className={`flex ${message.from === 'bot' ? 'justify-start' : 'justify-end'}`}
+              initial={{ opacity: 0, x: message.from === 'bot' ? -12 : 12, y: 8 }}
+              animate={isVisible ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: message.from === 'bot' ? -12 : 12, y: 8 }}
+              transition={{ duration: 0.45, delay: 0.15 + i * 0.18 }}
+            >
+              <div
+                className={`max-w-[78%] rounded-2xl px-3 py-2 text-[11px] leading-5 ${message.from === 'bot'
+                    ? 'border border-cyan-400/15 bg-cyan-400/10 text-cyan-50'
+                    : 'bg-white/10 text-white/90'
+                  }`}
+              >
+                {message.text}
+              </div>
+            </motion.div>
+          ))}
+
+          <motion.div
+            className="flex justify-start"
+            initial={{ opacity: 0, x: -12 }}
+            animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -12 }}
+            transition={{ duration: 0.45, delay: 0.75 }}
+          >
+            <div className="rounded-2xl border border-cyan-400/15 bg-cyan-400/10 px-3 py-2">
+              <div className="flex items-center gap-1.5">
+                <motion.span
+                  className="h-1.5 w-1.5 rounded-full bg-cyan-300"
+                  animate={isVisible ? { opacity: [0.35, 1, 0.35], y: [0, -1, 0] } : { opacity: 0.35 }}
+                  transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <motion.span
+                  className="h-1.5 w-1.5 rounded-full bg-cyan-300/80"
+                  animate={isVisible ? { opacity: [0.35, 1, 0.35], y: [0, -1, 0] } : { opacity: 0.35 }}
+                  transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut', delay: 0.15 }}
+                />
+                <motion.span
+                  className="h-1.5 w-1.5 rounded-full bg-cyan-300/60"
+                  animate={isVisible ? { opacity: [0.35, 1, 0.35], y: [0, -1, 0] } : { opacity: 0.35 }}
+                  transition={{ duration: 0.9, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        <motion.div
+          className="absolute inset-x-4 bottom-4 rounded-2xl border border-cyan-300/15 bg-white/[0.03] px-3 py-2"
+          initial={{ opacity: 0, y: 10 }}
+          animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ duration: 0.5, delay: 0.95 }}
+        >
+          <div className="flex items-center justify-between gap-3 text-[10px] text-cyan-100/70">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-cyan-300/80" />
+              <span>Ask NOVA AI</span>
+            </div>
+            <span className="rounded-full bg-cyan-400/15 px-2 py-1 text-[9px] text-cyan-200">Live</span>
+          </div>
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        className="absolute right-4 top-4 rounded-xl px-3 py-2 text-xs"
+        style={{ background: 'rgba(56,189,248,0.12)', border: '1px solid rgba(125,211,252,0.35)', backdropFilter: 'blur(8px)' }}
+        animate={isVisible ? { y: [0, -4, 0], scale: [1, 1.03, 1] } : { y: 0, scale: 1 }}
+        transition={{ duration: 2.1, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <p className="text-cyan-300 font-semibold">⚡ Chat-ready</p>
+        <p className="text-white/55" style={{ fontSize: 9 }}>real assistant flow</p>
       </motion.div>
     </div>
   )
@@ -401,6 +439,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
   const cardRef = useRef(null)
   const isInView = useInView(cardRef, { once: true, margin: '-120px' })
   const { Animation } = project
+  const isNovaAi = project.title === 'NOVA AI — Intelligent Assistant'
 
   return (
     <motion.div
@@ -408,9 +447,8 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
       initial={{ opacity: 0, y: 60 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: 0.15 }}
-      className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
-        index % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''
-      }`}
+      className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${index % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''
+        }`}
     >
       {/* Left – text */}
       <div>
@@ -430,45 +468,49 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
             <motion.span
               key={t}
               whileHover={{ scale: 1.05, backgroundColor: `rgba(${project.accentRgb},0.2)` }}
-              className={`px-3 py-1 rounded-full bg-white/5 border border-white/8 ${project.accentColor} text-xs font-medium transition-colors`}
+              className={`px-3 py-1 rounded-full bg-white/5 border border-white/[0.08] ${project.accentColor} text-xs font-medium transition-colors`}
             >
               {t}
             </motion.span>
           ))}
         </div>
         <div className="flex flex-wrap gap-4">
-          <a
+          <motion.a
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
+            whileHover={isNovaAi ? { y: -2, scale: 1.02 } : undefined}
             className={`inline-flex items-center gap-2 ${project.accentColor} text-sm font-semibold hover:opacity-80 transition-opacity group`}
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
             </svg>
             View on GitHub
-          </a>
+          </motion.a>
           {project.liveLink && (
-            <a
+            <motion.a
               href={project.liveLink}
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={isNovaAi ? { y: -2, scale: 1.02 } : undefined}
               className="inline-flex items-center gap-2 text-emerald-400 text-sm font-semibold hover:opacity-80 transition-opacity group"
             >
               <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
               Live Demo
-            </a>
+            </motion.a>
           )}
         </div>
       </div>
 
       {/* Right – animation (clickable) */}
-      <a
+      <motion.a
         href={project.liveLink || project.link}
         target="_blank"
         rel="noopener noreferrer"
+        whileHover={isNovaAi ? { y: -4, scale: 1.01 } : undefined}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
         className="relative group cursor-pointer block"
       >
         <div
@@ -476,7 +518,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
           style={{ background: `radial-gradient(ellipse, rgba(${project.accentRgb},0.25) 0%, transparent 70%)` }}
         />
         <div
-          className="relative rounded-2xl overflow-hidden aspect-[4/3]"
+          className={`relative rounded-2xl overflow-hidden aspect-[4/3] transition-all duration-500 ${isNovaAi ? 'group-hover:shadow-[0_0_0_1px_rgba(56,189,248,0.25),0_22px_70px_rgba(56,189,248,0.2)]' : ''}`}
           style={{
             background: `linear-gradient(135deg, rgba(${project.accentRgb},0.1) 0%, rgba(8,6,18,0.95) 100%)`,
             border: `1.5px solid rgba(${project.accentRgb},0.25)`,
@@ -505,7 +547,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
           <span className="absolute bottom-3 left-3 w-4 h-4" style={{ borderBottom: `1.5px solid rgba(${project.accentRgb},0.5)`, borderLeft: `1.5px solid rgba(${project.accentRgb},0.5)`, borderRadius: '0 0 0 3px' }} />
           <span className="absolute bottom-3 right-3 w-4 h-4" style={{ borderBottom: `1.5px solid rgba(${project.accentRgb},0.5)`, borderRight: `1.5px solid rgba(${project.accentRgb},0.5)`, borderRadius: '0 0 3px 0' }} />
         </div>
-      </a>
+      </motion.a>
     </motion.div>
   )
 }
