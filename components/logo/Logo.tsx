@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { LogoIcon } from './LogoIcon'
 
@@ -17,30 +17,7 @@ export const Logo: React.FC<LogoProps> = ({
   className = '',
   animated = true,
 }) => {
-  const [shineOffset, setShineOffset] = useState(-50)
   const [isHovered, setIsHovered] = useState(false)
-
-  // Periodic metallic shine animation every 5 seconds
-  useEffect(() => {
-    if (!animated) return
-
-    const interval = setInterval(() => {
-      // Animate shineOffset from -50 to 150
-      let start = -50
-      const step = () => {
-        start += 4
-        setShineOffset(start)
-        if (start < 150) {
-          requestAnimationFrame(step)
-        } else {
-          setShineOffset(-50)
-        }
-      }
-      requestAnimationFrame(step)
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [animated])
 
   const styleDimension = {
     width: width ? `${width}px` : undefined,
@@ -82,7 +59,6 @@ export const Logo: React.FC<LogoProps> = ({
     >
       <LogoIcon
         glowIntensity={isHovered ? 'normal' : 'low'}
-        shineOffset={shineOffset}
         className={`w-full h-full transition-all duration-300 ${
           isHovered
             ? 'drop-shadow-[0_0_22px_rgba(212,175,55,0.7)]'

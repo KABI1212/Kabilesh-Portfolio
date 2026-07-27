@@ -35,7 +35,7 @@ const certifications = [
     skills: ['Cybersecurity', 'Threats', 'Security Basics', 'Risk Awareness'],
   },
   {
-    name: 'Intro to IoT & Digital Transformation',
+    name: 'Introduction to IoT & Digital Transformation',
     issuer: 'Cisco',
     year: '2026',
     icon: '🌐',

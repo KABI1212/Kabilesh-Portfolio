@@ -29,41 +29,6 @@ export default function About() {
     return () => clearTimeout(timeout)
   }, [displayed, isDeleting, roleIndex])
 
-  const internships = [
-    {
-      role: 'Virtual Intern (Batch B-13)',
-      company: 'Infosys Springboard',
-      project: 'Strengthened software development and problem-solving skills through project-based learning',
-      color: 'from-blue-500/20 to-cyan-500/20',
-      border: 'border-blue-500/20',
-      dot: 'bg-blue-400',
-    },
-    {
-      role: 'SQL Intern',
-      company: 'Intern Certify',
-      project: 'Database queries and data management fundamentals',
-      color: 'from-yellow-500/20 to-orange-500/20',
-      border: 'border-yellow-500/20',
-      dot: 'bg-yellow-400',
-    },
-    {
-      role: 'Frontend Development Intern',
-      company: 'Pumo Technovation',
-      project: 'Hands-on experience implementing frontend concepts in real-world projects',
-      color: 'from-blue-500/20 to-indigo-500/20',
-      border: 'border-blue-500/20',
-      dot: 'bg-blue-400',
-    },
-    {
-      role: 'Web Development Intern',
-      company: "Let's Gametech",
-      project: 'Fundamentals of web development using HTML, CSS, and JavaScript',
-      color: 'from-emerald-500/20 to-teal-500/20',
-      border: 'border-emerald-500/20',
-      dot: 'bg-emerald-400',
-    },
-  ]
-
   return (
     <section id="about" className="py-24 lg:py-32 relative overflow-hidden" ref={sectionRef}>
       {/* Background accent */}
@@ -162,7 +127,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* RIGHT — About paragraph + typing + internships (staggered) */}
+          {/* RIGHT — About paragraph + typing */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -201,64 +166,71 @@ export default function About() {
               technical skills to innovative real-world projects.
             </motion.p>
 
-            {/* Experience heading — appears third */}
+            {/* Highlights Grid */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.6 }}
+              className="grid grid-cols-2 gap-4 pt-2"
             >
-              <p className="text-[#555] text-xs font-medium tracking-widest uppercase mb-4">
-                Experience
-              </p>
-              {/* Internship cards — each with its own delay */}
-              <div className="space-y-3">
-                {internships.map((item, i) => (
-                  <motion.div
-                    key={item.company}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.75 + i * 0.15 }}
-                    className={`rounded-xl bg-gradient-to-r ${item.color} border ${item.border} p-4`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`w-2 h-2 rounded-full ${item.dot} mt-1.5 flex-shrink-0`} />
-                      <div>
-                        <p className="text-white font-semibold text-sm">{item.role}</p>
-                        <p className="text-[#888] text-xs mt-0.5">@ {item.company}</p>
-                        <p className="text-[#666] text-xs mt-1">{item.project}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
+              <div className="rounded-xl bg-blue-500/5 border border-blue-500/10 p-4">
+                <p className="text-blue-400 font-bold text-lg">B.E. CSE</p>
+                <p className="text-[#666] text-xs mt-1">V.S.B Engineering College</p>
+              </div>
+              <div className="rounded-xl bg-blue-500/5 border border-blue-500/10 p-4">
+                <p className="text-blue-400 font-bold text-lg">AI & Software</p>
+                <p className="text-[#666] text-xs mt-1">Core Specialization</p>
               </div>
             </motion.div>
 
-            {/* CTA — appears last */}
-            <motion.a
-              href="#contact"
+            {/* CTA Links */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 1.2 }}
-              className="inline-flex items-center gap-2 text-blue-400 text-sm font-medium hover:text-blue-300 transition-colors group"
+              transition={{ duration: 0.5, delay: 0.75 }}
+              className="flex items-center gap-6 pt-2"
             >
-              Let&apos;s work together
-              <svg
-                className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+              <a
+                href="#experience"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm font-medium hover:bg-blue-500/20 hover:border-blue-400 transition-all group"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </motion.a>
+                View Experience
+                <svg
+                  className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 text-[#888] text-sm font-medium hover:text-white transition-colors group"
+              >
+                Let&apos;s work together
+                <svg
+                  className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </a>
+            </motion.div>
           </motion.div>
         </div>
       </div>

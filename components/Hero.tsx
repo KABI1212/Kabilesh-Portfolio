@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const roles = [
@@ -10,10 +11,55 @@ const roles = [
   'AI Developer',
 ]
 
+const fullStackRolesList = ['Full Stack', 'Software Developer']
+
+const softSkillsList = [
+  'Problem Solving',
+  'Time Management',
+  'Team Work',
+  'Adaptability',
+  'Communication',
+]
+
+function useTypingAnimation(items: string[], typingSpeed = 80, holdTime = 1500, deleteSpeed = 45) {
+  const [index, setIndex] = useState(0)
+  const [displayedText, setDisplayedText] = useState('')
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  useEffect(() => {
+    const current = items[index]
+    let timeout: ReturnType<typeof setTimeout>
+
+    if (!isDeleting && displayedText.length < current.length) {
+      timeout = setTimeout(() => {
+        setDisplayedText(current.slice(0, displayedText.length + 1))
+      }, typingSpeed)
+    } else if (!isDeleting && displayedText.length === current.length) {
+      timeout = setTimeout(() => {
+        setIsDeleting(true)
+      }, holdTime)
+    } else if (isDeleting && displayedText.length > 0) {
+      timeout = setTimeout(() => {
+        setDisplayedText(current.slice(0, displayedText.length - 1))
+      }, deleteSpeed)
+    } else if (isDeleting && displayedText.length === 0) {
+      setIsDeleting(false)
+      setIndex((prev) => (prev + 1) % items.length)
+    }
+
+    return () => clearTimeout(timeout)
+  }, [displayedText, isDeleting, index, items, typingSpeed, holdTime, deleteSpeed])
+
+  return displayedText
+}
+
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
   const [displayed, setDisplayed] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
+
+  const displayedFullStackRole = useTypingAnimation(fullStackRolesList, 80, 1500, 45)
+  const displayedSoftSkill = useTypingAnimation(softSkillsList, 80, 1500, 45)
 
   useEffect(() => {
     const current = roles[roleIndex]
@@ -82,7 +128,7 @@ export default function Hero() {
                   paddingRight: '0.1em'
                 }}
               >
-                Kabilesh
+                KABILESH
               </motion.h1>
               
               <motion.div
@@ -269,7 +315,7 @@ export default function Hero() {
 
             {/* ── Main profile circle ── */}
             <div
-              className="relative rounded-full flex items-center justify-center float-animation"
+              className="relative rounded-full flex items-center justify-center float-animation overflow-hidden"
               style={{
                 width: 210,
                 height: 210,
@@ -280,42 +326,25 @@ export default function Hero() {
                   '0 0 40px rgba(109,40,217,0.35), 0 0 80px rgba(109,40,217,0.15), inset 0 0 30px rgba(109,40,217,0.1)',
               }}
             >
-              {/* Inner subtle grid */}
-              <div
-                className="absolute inset-0 rounded-full opacity-[0.06]"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
-                  backgroundSize: '24px 24px',
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                }}
+              {/* Profile Headshot Image */}
+              <Image
+                src="/profile.jpg"
+                alt="Kabilesh K"
+                fill
+                quality={100}
+                priority
+                className="object-cover rounded-full"
+                style={{ objectPosition: 'center 15%' }}
               />
 
-              <div className="relative text-center z-10">
-                <p
-                  className="font-black tracking-tight leading-none"
-                  style={{
-                    fontSize: '52px',
-                    background: 'linear-gradient(135deg, #c4b5fd 0%, #60a5fa 50%, #2563eb 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    textShadow: 'none',
-                    filter: 'drop-shadow(0 0 12px rgba(167,139,250,0.5))',
-                  }}
-                >
-                  KK
-                </p>
-                <p className="text-[10px] tracking-[0.3em] text-blue-400/60 mt-1 uppercase">
-                  Portfolio
-                </p>
-              </div>
+              {/* Gradient vignette overlay at bottom for contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/60 via-transparent to-transparent pointer-events-none z-10" />
 
               {/* Corner tick marks */}
               {[0, 90, 180, 270].map((deg) => (
                 <span
                   key={deg}
-                  className="absolute w-3 h-0.5 bg-blue-500/40 rounded-full"
+                  className="absolute w-3 h-0.5 bg-blue-500/40 rounded-full z-20"
                   style={{
                     top: '50%',
                     left: '50%',
@@ -326,21 +355,54 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* ── Floating badge: Open to Work ── */}
+            {/* ── Floating badge: Soft Skills (Top-Left) ── */}
+            <motion.div
+              initial={{ opacity: 0, x: -24, y: -10 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 1.0, duration: 0.6, ease: 'easeOut' }}
+              className="absolute"
+              style={{ top: -16, left: -72 }}
+            >
+              <div
+                className="rounded-2xl px-4 py-3 shadow-2xl"
+                style={{
+                  background: 'rgba(15,12,30,0.95)',
+                  border: '1px solid rgba(139,92,246,0.3)',
+                  backdropFilter: 'blur(12px)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(139,92,246,0.15)',
+                  minWidth: 175,
+                  width: 175,
+                }}
+              >
+                <p className="text-[11px] text-[#666] font-medium mb-0.5 flex items-center gap-1">
+                  <span className="text-[11px]">🧠</span> Soft Skill
+                </p>
+                <p className="text-[14px] font-bold text-white leading-tight truncate">
+                  {displayedSoftSkill}
+                  <span className="cursor-blink text-blue-400 font-normal">|</span>
+                </p>
+                <div className="flex items-center gap-1.5 mt-1.5">
+                  <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse shadow-sm shadow-blue-400/60" />
+                  <span className="text-[12px] text-blue-400 font-semibold">Core Skill</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* ── Floating badge: Open to Work (Top-Right) ── */}
             <motion.div
               initial={{ opacity: 0, x: 24, y: -10 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: 1.1, duration: 0.6, ease: 'easeOut' }}
               className="absolute"
-              style={{ top: 28, right: -16 }}
+              style={{ top: -16, right: -64 }}
             >
               <div
                 className="rounded-2xl px-4 py-3 shadow-2xl"
                 style={{
-                  background: 'rgba(15,12,30,0.92)',
-                  border: '1px solid rgba(139,92,246,0.25)',
+                  background: 'rgba(15,12,30,0.95)',
+                  border: '1px solid rgba(139,92,246,0.3)',
                   backdropFilter: 'blur(12px)',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(139,92,246,0.1)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(139,92,246,0.15)',
                   minWidth: 148,
                 }}
               >
@@ -353,21 +415,21 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* ── Floating badge: Location ── */}
+            {/* ── Floating badge: Location (Bottom-Left) ── */}
             <motion.div
               initial={{ opacity: 0, x: -24, y: 10 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: 1.3, duration: 0.6, ease: 'easeOut' }}
               className="absolute"
-              style={{ bottom: 32, left: -20 }}
+              style={{ bottom: -16, left: -72 }}
             >
               <div
                 className="rounded-2xl px-4 py-3 shadow-2xl"
                 style={{
-                  background: 'rgba(15,12,30,0.92)',
-                  border: '1px solid rgba(139,92,246,0.2)',
+                  background: 'rgba(15,12,30,0.95)',
+                  border: '1px solid rgba(139,92,246,0.25)',
                   backdropFilter: 'blur(12px)',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(139,92,246,0.08)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(139,92,246,0.1)',
                   minWidth: 140,
                 }}
               >
@@ -380,28 +442,40 @@ export default function Hero() {
                   </svg>
                   Location
                 </p>
-                <p className="text-[15px] font-bold text-white leading-tight">Tamil Nadu, IN</p>
+                <p className="text-[15px] font-bold text-white leading-tight">Tamil Nadu, IND</p>
               </div>
             </motion.div>
 
-            {/* ── Small floating tech pill ── */}
+            {/* ── Floating badge: Full Stack / Software Developer (Bottom-Right) ── */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.5, duration: 0.5 }}
+              initial={{ opacity: 0, x: 24, y: 10 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.6, ease: 'easeOut' }}
               className="absolute"
-              style={{ bottom: 10, right: 10 }}
+              style={{ bottom: -16, right: -64 }}
             >
               <div
-                className="flex items-center gap-1.5 rounded-full px-3 py-1.5"
+                className="rounded-2xl px-4 py-3 shadow-2xl"
                 style={{
-                  background: 'rgba(109,40,217,0.18)',
+                  background: 'rgba(15,12,30,0.95)',
                   border: '1px solid rgba(139,92,246,0.3)',
-                  backdropFilter: 'blur(8px)',
+                  backdropFilter: 'blur(12px)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(139,92,246,0.15)',
+                  minWidth: 185,
+                  width: 185,
                 }}
               >
-                <span className="text-[11px]">⚡</span>
-                <span className="text-[11px] text-blue-300 font-semibold">Full Stack</span>
+                <p className="text-[11px] text-[#666] font-medium mb-0.5 flex items-center gap-1">
+                  <span className="text-[11px]">⚡</span> Role Focus
+                </p>
+                <p className="text-[14px] font-bold text-white leading-tight truncate">
+                  {displayedFullStackRole}
+                  <span className="cursor-blink text-blue-400 font-normal">|</span>
+                </p>
+                <div className="flex items-center gap-1.5 mt-1.5">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-sm shadow-cyan-400/60" />
+                  <span className="text-[12px] text-cyan-400 font-semibold">Specialization</span>
+                </div>
               </div>
             </motion.div>
           </motion.div>

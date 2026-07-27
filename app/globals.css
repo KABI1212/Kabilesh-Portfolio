@@ -1,9 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.electric-gold-title {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #ffe89c 15%,
+    #f2d06b 35%,
+    #d4af37 55%,
+    #996e14 75%,
+    #fcf6ba 90%,
+    #7a5200 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: 
+    drop-shadow(0 0 8px rgba(56, 189, 248, 0.95))
+    drop-shadow(0 0 25px rgba(37, 99, 235, 0.85))
+    drop-shadow(0 0 50px rgba(37, 99, 235, 0.5));
+}
 
 * {
   margin: 0;

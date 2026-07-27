@@ -7,7 +7,6 @@ export interface LogoIconProps extends React.SVGProps<SVGSVGElement> {
 
 export const LogoIcon: React.FC<LogoIconProps> = ({
   glowIntensity = 'normal',
-  shineOffset = -50,
   className = '',
   ...props
 }) => {
@@ -31,17 +30,6 @@ export const LogoIcon: React.FC<LogoIconProps> = ({
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
-
-        {/* Dynamic Metallic Shine Overlay */}
-        <linearGradient id="shineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset={`${shineOffset - 25}%`} stopColor="rgba(255,255,255,0)" />
-          <stop offset={`${shineOffset}%`} stopColor="rgba(255,255,255,0.6)" />
-          <stop offset={`${shineOffset + 25}%`} stopColor="rgba(255,255,255,0)" />
-        </linearGradient>
-
-        <clipPath id="logoClip">
-          <rect x="0" y="0" width="500" height="500" />
-        </clipPath>
       </defs>
 
       <g filter="url(#goldGlow)">
@@ -54,19 +42,6 @@ export const LogoIcon: React.FC<LogoIconProps> = ({
           preserveAspectRatio="xMidYMid meet"
         />
       </g>
-
-      {/* Dynamic Metallic Shine Sweep Overlay */}
-      {shineOffset > -50 && shineOffset < 150 && (
-        <rect
-          x="0"
-          y="0"
-          width="500"
-          height="500"
-          fill="url(#shineGrad)"
-          clipPath="url(#logoClip)"
-          style={{ mixBlendMode: 'overlay', pointerEvents: 'none' }}
-        />
-      )}
     </svg>
   )
 }
