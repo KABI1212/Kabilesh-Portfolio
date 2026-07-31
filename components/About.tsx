@@ -193,7 +193,7 @@ export default function About() {
               className="flex flex-wrap items-center gap-4 pt-2"
             >
               <a
-                href="/resume.pdf"
+                href="/Kabilesh_K_Resume.pdf"
                 download="Kabilesh_K_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
