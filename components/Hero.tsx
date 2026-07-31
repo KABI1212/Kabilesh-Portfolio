@@ -202,7 +202,7 @@ export default function Hero() {
                 View My Work
               </a>
               <a
-                href="/resume.pdf"
+                href="/Kabilesh_K_Resume.pdf"
                 download="Kabilesh_K_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
