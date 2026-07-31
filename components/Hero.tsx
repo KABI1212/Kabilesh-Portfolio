@@ -130,7 +130,7 @@ export default function Hero() {
               >
                 KABILESH
               </motion.h1>
-              
+
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -141,18 +141,18 @@ export default function Hero() {
                   {/* Left and right lines */}
                   <path d="M0 10 L 130 10" stroke="url(#goldGrad)" strokeWidth="1" />
                   <path d="M170 10 L 300 10" stroke="url(#goldGrad)" strokeWidth="1" />
-                  
+
                   {/* Center diamond */}
                   <path d="M150 4 L 153 10 L 150 16 L 147 10 Z" fill="url(#goldGrad)" />
-                  
+
                   {/* Left and right dots */}
                   <circle cx="140" cy="10" r="1.5" fill="url(#goldGrad)" />
                   <circle cx="160" cy="10" r="1.5" fill="url(#goldGrad)" />
-                  
+
                   {/* Decorative Swirls */}
                   <path d="M135 10 Q 142 3 147 10 Q 142 17 135 10" stroke="url(#goldGrad)" strokeWidth="0.8" fill="none" />
                   <path d="M165 10 Q 158 3 153 10 Q 158 17 165 10" stroke="url(#goldGrad)" strokeWidth="0.8" fill="none" />
-                  
+
                   <defs>
                     <linearGradient id="goldGrad" x1="0" y1="0" x2="300" y2="0" gradientUnits="userSpaceOnUse">
                       <stop offset="0%" stopColor="#bf953f" />
@@ -200,6 +200,18 @@ export default function Hero() {
                 className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold text-sm hover:from-blue-500 hover:to-cyan-400 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
               >
                 View My Work
+              </a>
+              <a
+                href="/resume.pdf"
+                download="Kabilesh_K_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-300 font-semibold text-sm hover:bg-blue-500/20 hover:border-blue-400 transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-2"
+              >
+                <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Download Resume
               </a>
               <a
                 href="#contact"
