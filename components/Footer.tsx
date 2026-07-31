@@ -84,7 +84,14 @@ export default function Footer() {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className="text-[#555] hover:text-white text-xs font-medium transition-colors duration-200"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    const targetId = link.href.replace('#', '')
+                    const el = document.getElementById(targetId)
+                    if (el) el.scrollIntoView({ behavior: 'smooth' })
+                    else window.location.hash = targetId
+                  }}
+                  className="text-[#555] hover:text-white text-xs font-medium transition-colors duration-200 cursor-pointer"
                 >
                   {link.label}
                 </a>
