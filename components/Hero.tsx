@@ -193,29 +193,29 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="flex flex-wrap gap-4 justify-center lg:justify-start"
+              className="flex flex-wrap gap-4 justify-center lg:justify-start relative z-20"
             >
               <a
                 href="#projects"
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold text-sm hover:from-blue-500 hover:to-cyan-400 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5"
+                onClick={(e) => {
+                  e.preventDefault()
+                  const el = document.getElementById('projects')
+                  if (el) el.scrollIntoView({ behavior: 'smooth' })
+                  else window.location.hash = 'projects'
+                }}
+                className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-500 text-white font-semibold text-sm hover:from-blue-500 hover:to-cyan-400 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 cursor-pointer"
               >
                 View My Work
               </a>
               <a
-                href="/Kabilesh_K_Resume.pdf"
-                download="Kabilesh_K_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-300 font-semibold text-sm hover:bg-blue-500/20 hover:border-blue-400 transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-2"
-              >
-                <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                Download Resume
-              </a>
-              <a
                 href="#contact"
-                className="px-6 py-3 rounded-xl border border-white/10 text-white font-semibold text-sm hover:border-blue-500/50 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+                onClick={(e) => {
+                  e.preventDefault()
+                  const el = document.getElementById('contact')
+                  if (el) el.scrollIntoView({ behavior: 'smooth' })
+                  else window.location.hash = 'contact'
+                }}
+                className="px-6 py-3 rounded-xl border border-white/10 text-white font-semibold text-sm hover:border-blue-500/50 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer"
               >
                 Get In Touch
               </a>
