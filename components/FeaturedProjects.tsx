@@ -418,7 +418,7 @@ const featured = [
     description:
       'AI-driven earthquake prediction model analyzing seismic data to forecast magnitude and location. Built with Python and deep learning, achieving high accuracy on historical datasets.',
     tech: ['Python', 'TensorFlow', 'Seismic Data', 'LSTM', 'Geospatial Analysis'],
-    link: 'https://github.com/KABI1212/Impatsense-Earthquake-Prediction',
+    link: 'https://github.com/KABI1212/ImpactSense---Earthquake-Impact-Prediction-',
     accentColor: 'text-orange-400',
     borderColor: 'border-orange-500/20',
     accentRgb: '249,115,22',
