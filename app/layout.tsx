@@ -5,7 +5,14 @@ export const metadata: Metadata = {
   title: 'Kabilesh K — Portfolio',
   description:
     'Final Year B.E. CSE Student | AI/ML & Full-Stack Developer — Portfolio of Kabilesh K',
-  icons: [{ rel: 'icon', url: '/icon.svg' }],
+  icons: {
+    icon: [
+      { url: '/logo-transparent.png', type: 'image/png' },
+      { url: '/icon.png', type: 'image/png' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/logo-transparent.png', type: 'image/png' }],
+  },
 }
 
 export default function RootLayout({
