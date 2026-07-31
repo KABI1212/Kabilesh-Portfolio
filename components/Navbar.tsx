@@ -46,17 +46,24 @@ export default function Navbar() {
 
         {/* Desktop Links */}
         <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                className="text-[#888] hover:text-white text-sm font-medium transition-colors duration-200 relative group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-blue-400 group-hover:w-full transition-all duration-300" />
-              </a>
-            </li>
-          ))}
+            {navLinks.map((link) => (
+              <li key={link.label}>
+                <a
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    const targetId = link.href.replace('#', '')
+                    const el = document.getElementById(targetId)
+                    if (el) el.scrollIntoView({ behavior: 'smooth' })
+                    else window.location.hash = targetId
+                  }}
+                  className="text-[#888] hover:text-white text-sm font-medium transition-colors duration-200 relative group cursor-pointer"
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-blue-400 group-hover:w-full transition-all duration-300" />
+                </a>
+              </li>
+            ))}
           <li>
             <a
               href="/Kabilesh_K_Resume.pdf"
@@ -112,8 +119,15 @@ export default function Navbar() {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-[#888] hover:text-white text-sm font-medium transition-colors duration-200 block py-1"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setMenuOpen(false)
+                    const targetId = link.href.replace('#', '')
+                    const el = document.getElementById(targetId)
+                    if (el) el.scrollIntoView({ behavior: 'smooth' })
+                    else window.location.hash = targetId
+                  }}
+                  className="text-[#888] hover:text-white text-sm font-medium transition-colors duration-200 block py-1 cursor-pointer"
                 >
                   {link.label}
                 </a>
