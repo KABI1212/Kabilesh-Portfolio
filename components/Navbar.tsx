@@ -59,7 +59,7 @@ export default function Navbar() {
           ))}
           <li>
             <a
-              href="/resume.pdf"
+              href="/Kabilesh_K_Resume.pdf"
               download="Kabilesh_K_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -121,7 +121,7 @@ export default function Navbar() {
             ))}
             <li>
               <a
-                href="/resume.pdf"
+                href="/Kabilesh_K_Resume.pdf"
                 download="Kabilesh_K_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
