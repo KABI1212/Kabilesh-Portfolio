@@ -3,12 +3,13 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
-const skillsRow1 = [
+const skills = [
   { name: 'Java', icon: '☕' },
-  { name: 'SQL', icon: '🗄️' },
+  { name: 'Python', icon: '🐍' },
   { name: 'JavaScript', icon: '⚡' },
   { name: 'HTML', icon: '🌐' },
   { name: 'CSS', icon: '🎨' },
+  { name: 'SQL', icon: '🗄️' },
   { name: 'MySQL', icon: '🗄️' },
   { name: 'MongoDB', icon: '🍃' },
   { name: 'NLP', icon: '🧠' },
@@ -16,10 +17,6 @@ const skillsRow1 = [
   { name: 'Prompt Engineering', icon: '💬' },
   { name: 'Git', icon: '📦' },
   { name: 'GitHub', icon: '🐙' },
-]
-
-const skillsRow2 = [
-  { name: 'Python', icon: '🐍' },
   { name: 'Blockchain', icon: '⛓️' },
   { name: 'Cryptography', icon: '🔐' },
   { name: 'VS Code', icon: '💻' },
@@ -30,6 +27,11 @@ const skillsRow2 = [
   { name: 'Time Management', icon: '⏱️' },
   { name: 'Adaptability', icon: '🔄' },
 ]
+
+const middle = Math.ceil(skills.length / 2)
+
+const skillsRow1 = skills.slice(0, middle)
+const skillsRow2 = skills.slice(middle)
 
 function MarqueeRow({ items, reverse = false }: { items: typeof skillsRow1; reverse?: boolean }) {
   return (
