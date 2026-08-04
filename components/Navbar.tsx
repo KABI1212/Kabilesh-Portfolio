@@ -80,8 +80,14 @@ export default function Navbar() {
           </li>
           <li>
             <a
-              href="mailto:kabileshkoffl@gmail.com"
-              className="px-4 py-2 rounded-lg border border-blue-500/50 text-blue-400 text-sm font-medium hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-200"
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault()
+                const el = document.getElementById('contact')
+                if (el) el.scrollIntoView({ behavior: 'smooth' })
+                else window.location.hash = 'contact'
+              }}
+              className="px-4 py-2 rounded-lg border border-blue-500/50 text-blue-400 text-sm font-medium hover:bg-blue-500/10 hover:border-blue-400 transition-all duration-200 cursor-pointer"
             >
               Hire Me
             </a>
@@ -150,9 +156,15 @@ export default function Navbar() {
             </li>
             <li>
               <a
-                href="mailto:kabileshkoffl@gmail.com"
-                onClick={() => setMenuOpen(false)}
-                className="inline-block px-4 py-2 rounded-lg border border-blue-500/50 text-blue-400 text-sm font-medium hover:bg-blue-500/10 transition-all duration-200"
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setMenuOpen(false)
+                  const el = document.getElementById('contact')
+                  if (el) el.scrollIntoView({ behavior: 'smooth' })
+                  else window.location.hash = 'contact'
+                }}
+                className="inline-block px-4 py-2 rounded-lg border border-blue-500/50 text-blue-400 text-sm font-medium hover:bg-blue-500/10 transition-all duration-200 cursor-pointer"
               >
                 Hire Me
               </a>
