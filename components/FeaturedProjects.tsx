@@ -64,8 +64,8 @@ function PriceCheckerAnim({ isVisible }: { isVisible: boolean }) {
             >
               <div
                 className={`max-w-[78%] rounded-2xl px-3 py-2 text-[11px] leading-5 ${message.from === 'bot'
-                    ? 'border border-cyan-400/15 bg-cyan-400/10 text-cyan-50'
-                    : 'bg-white/10 text-white/90'
+                  ? 'border border-cyan-400/15 bg-cyan-400/10 text-cyan-50'
+                  : 'bg-white/10 text-white/90'
                   }`}
               >
                 {message.text}
@@ -138,8 +138,8 @@ function AIPathfinderAnim({ isVisible }: { isVisible: boolean }) {
     { x: 50, y: 30, label: 'Resume', color: '#38bdf8' },
     { x: 20, y: 60, label: 'Aptitude', color: '#60a5fa' },
     { x: 80, y: 60, label: 'Coding', color: '#f97316' },
-    { x: 35, y: 85, label: 'HR Mock', color: '#34d399' },
-    { x: 65, y: 85, label: 'Tech Mock', color: '#facc15' },
+    { x: 35, y: 85, label: 'Courses', color: '#34d399' },
+    { x: 65, y: 85, label: 'Certification', color: '#facc15' },
   ]
   const edges = [[0, 1], [0, 2], [1, 3], [2, 4], [1, 4], [2, 3]]
   const [active, setActive] = useState(0)
@@ -212,20 +212,49 @@ function AIPathfinderAnim({ isVisible }: { isVisible: boolean }) {
 
       <motion.div
         className="absolute top-4 right-4 rounded-xl px-3 py-2 text-center"
-        style={{ background: 'rgba(56,189,248,0.12)', border: '1px solid rgba(56,189,248,0.3)', backdropFilter: 'blur(8px)' }}
-        animate={isVisible ? { scale: [1, 1.04, 1] } : {}} transition={{ duration: 2, repeat: Infinity }}
+        style={{
+          background: "rgba(56,189,248,0.12)",
+          border: "1px solid rgba(56,189,248,0.3)",
+          backdropFilter: "blur(8px)",
+        }}
+        animate={isVisible ? { scale: [1, 1.04, 1] } : {}}
+        transition={{ duration: 2, repeat: Infinity }}
       >
-        <p className="text-[10px] text-white/40">Interview Score</p>
-        <motion.p className="text-lg font-black text-sky-400" animate={isVisible ? { opacity: [0.7, 1, 0.7] } : {}} transition={{ duration: 1.5, repeat: Infinity }}>92%</motion.p>
+        <p className="text-[10px] text-white/40">
+          Career Readiness
+        </p>
+
+        <motion.p
+          className="text-lg font-black text-sky-400"
+          animate={isVisible ? { opacity: [0.7, 1, 0.7] } : {}}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          96%
+        </motion.p>
       </motion.div>
 
       <motion.div
-        className="absolute bottom-4 left-4 rounded-xl px-3 py-2 max-w-[140px]"
-        style={{ background: 'rgba(167,139,250,0.12)', border: '1px solid rgba(167,139,250,0.3)', backdropFilter: 'blur(8px)' }}
-        initial={{ opacity: 0, x: -10 }} animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }} transition={{ delay: 1.5 }}
+        className="absolute bottom-4 left-4 rounded-xl px-3 py-2 w-[170px]"
+        style={{
+          background: "rgba(167,139,250,0.12)",
+          border: "1px solid rgba(167,139,250,0.3)",
+          backdropFilter: "blur(8px)",
+        }}
+        initial={{ opacity: 0, x: -10 }}
+        animate={
+          isVisible
+            ? { opacity: 1, x: 0 }
+            : { opacity: 0, x: -10 }
+        }
+        transition={{ delay: 1.5 }}
       >
-        <p className="text-[9px] text-blue-300 font-semibold mb-0.5">🤖 AI Interviewer</p>
-        <p className="text-[9px] text-white/50">Tell me about yourself...</p>
+        <p className="text-[11px] text-blue-300 font-semibold mb-0.5">
+          📚 Courses & Certifications
+        </p>
+
+        <p className="text-[9px] text-white/50 whitespace-nowrap">
+          Learn • Complete • Get Certified
+        </p>
       </motion.div>
     </div>
   )
