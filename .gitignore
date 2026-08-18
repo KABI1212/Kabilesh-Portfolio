@@ -35,3 +35,8 @@ next-env.d.ts
 
 # data
 data/contact-submissions.json
+
+# local scripts & notes
+cmd to run this
+test*.js
+.claude/

@@ -1,5 +1,0 @@
-# 1. Navigate into the project folder (if not already there)
-cd c:\Users\Admin\Downloads\Kabilesh_Portfolio\Kabilesh_Portfolio
-
-# 2. Start the development server
-npm run dev
