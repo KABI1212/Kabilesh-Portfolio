@@ -9,10 +9,12 @@ import FeaturedProjects from '@/components/FeaturedProjects'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import SparkleBackground from '@/components/SparkleBackground'
+import CosmicBackground from '@/components/CosmicBackground'
 
 export default function Home() {
   return (
-    <main className="bg-[#0a0a0a] min-h-screen relative">
+    <main className="bg-[#05070c] min-h-screen relative selection:bg-blue-500/30 selection:text-cyan-200">
+      <CosmicBackground />
       <SparkleBackground />
       <div className="relative z-10">
         <Navbar />
