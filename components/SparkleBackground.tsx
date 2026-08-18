@@ -63,17 +63,18 @@ export default function SparkleBackground() {
       const cy = s
 
       if (type === 0) {
-        // Glowing dot
+        // Glowing starlight dot
         const g = c.createRadialGradient(cx, cy, 0, cx, cy, s)
-        g.addColorStop(0, 'rgba(255,255,255,0.95)')
-        g.addColorStop(0.4, 'rgba(196,181,253,0.6)')
-        g.addColorStop(1, 'rgba(139,92,246,0)')
+        g.addColorStop(0, 'rgba(255, 255, 255, 1)')
+        g.addColorStop(0.35, 'rgba(125, 211, 252, 0.85)')
+        g.addColorStop(0.7, 'rgba(56, 189, 248, 0.35)')
+        g.addColorStop(1, 'rgba(14, 165, 233, 0)')
         c.fillStyle = g
         c.beginPath()
         c.arc(cx, cy, s, 0, Math.PI * 2)
         c.fill()
       } else if (type === 1) {
-        // 4-point star
+        // 4-point celestial star
         const outer = s * 0.9
         const inner = s * 0.2
         c.beginPath()
@@ -85,22 +86,23 @@ export default function SparkleBackground() {
         }
         c.closePath()
         const g2 = c.createRadialGradient(cx, cy, 0, cx, cy, outer)
-        g2.addColorStop(0, 'rgba(255,255,255,1)')
-        g2.addColorStop(0.5, 'rgba(186, 173, 239, 0.8)')
-        g2.addColorStop(1, 'rgba(139,92,246,0)')
+        g2.addColorStop(0, 'rgba(255, 255, 255, 1)')
+        g2.addColorStop(0.4, 'rgba(186, 230, 253, 0.9)')
+        g2.addColorStop(0.75, 'rgba(56, 189, 248, 0.45)')
+        g2.addColorStop(1, 'rgba(3, 105, 161, 0)')
         c.fillStyle = g2
         c.shadowBlur = s * 2
-        c.shadowColor = 'rgba(139,92,246,0.7)'
+        c.shadowColor = 'rgba(56, 189, 248, 0.8)'
         c.fill()
       } else {
-        // Cross sparkle
+        // Cross starlight sparkle
         const len = s * 0.85
         const lw = Math.max(size * 0.35, 0.5)
-        c.strokeStyle = 'rgba(196,181,253,0.85)'
+        c.strokeStyle = 'rgba(224, 242, 254, 0.95)'
         c.lineWidth = lw
         c.lineCap = 'round'
         c.shadowBlur = s * 2
-        c.shadowColor = 'rgba(139,92,246,0.8)'
+        c.shadowColor = 'rgba(56, 189, 248, 0.85)'
         c.beginPath()
         c.moveTo(cx - len, cy)
         c.lineTo(cx + len, cy)
@@ -109,7 +111,7 @@ export default function SparkleBackground() {
         c.stroke()
         c.beginPath()
         c.arc(cx, cy, lw * 1.5, 0, Math.PI * 2)
-        c.fillStyle = 'rgba(255,255,255,0.9)'
+        c.fillStyle = 'rgba(255, 255, 255, 1)'
         c.fill()
       }
       return oc
