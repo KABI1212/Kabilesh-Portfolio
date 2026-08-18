@@ -425,7 +425,7 @@ const featured = [
   },
   {
     label: 'Featured Project',
-    title: 'SecureChain — Blockchain & Cybersecurity',
+    title: 'Blockchain & Cybersecurity:Securechain',
     description:
       'Team project delivering a blockchain-based cybersecurity system providing secure transactions, decentralized authentication, and intelligent threat detection through hashing and encryption.',
     tech: ['Python', 'Blockchain', 'Cryptography', 'Flask', 'React', 'Solidity'],
@@ -447,7 +447,7 @@ const featured = [
     description:
       'AI-driven earthquake prediction model analyzing seismic data to forecast magnitude and location. Built with Python and deep learning, achieving high accuracy on historical datasets.',
     tech: ['Python', 'TensorFlow', 'Seismic Data', 'LSTM', 'Geospatial Analysis'],
-    link: 'https://github.com/KABI1212/ImpactSense---Earthquake-Impact-Prediction-',
+    link: 'https://github.com/KABI1212/ImpactSense-Earthquake-Impact-Prediction-.git',
     accentColor: 'text-orange-400',
     borderColor: 'border-orange-500/20',
     accentRgb: '249,115,22',
