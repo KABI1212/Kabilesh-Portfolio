@@ -28,7 +28,7 @@ const experiences = [
     status: 'Database Internship',
     description:
       'Mastered complex relational database queries, schema design, data optimization, and data management fundamentals. Worked with relational databases to ensure data integrity and query efficiency.',
-    highlights: ['SQL', 'MySQL', 'Database Management', 'Query Optimization', 'DBMS'],
+    highlights: ['SQL', 'MySQL', 'Database Management', 'Query', 'DBMS'],
     gradient: 'from-amber-600/20 via-yellow-500/10 to-orange-600/20',
     border: 'border-yellow-500/20',
     dot: 'bg-yellow-400',
@@ -44,7 +44,7 @@ const experiences = [
     status: 'Frontend Internship',
     description:
       'Gained hands-on experience implementing modern frontend concepts, UI design patterns, and responsive layouts for real-world projects. Enhanced user experience using web standards and CSS framework utilities.',
-    highlights: ['HTML5/CSS3', 'JavaScript', 'Frontend Design', 'Responsive Layouts', 'UI/UX'],
+    highlights: ['HTML5/CSS3', 'JavaScript', 'Frontend Design', 'UI/UX'],
     gradient: 'from-cyan-600/20 via-blue-500/10 to-indigo-600/20',
     border: 'border-cyan-500/20',
     dot: 'bg-cyan-400',
@@ -60,7 +60,7 @@ const experiences = [
     status: 'Web Internship',
     description:
       'Built a solid foundation in web development using HTML, CSS, and JavaScript. Implemented dynamic DOM interactions, responsive page structures, and key web features.',
-    highlights: ['HTML', 'CSS', 'JavaScript', 'DOM Manipulation', 'Web Fundamentals'],
+    highlights: ['HTML', 'CSS', 'JavaScript', 'Web Fundamentals'],
     gradient: 'from-emerald-600/20 via-teal-500/10 to-cyan-600/20',
     border: 'border-emerald-500/20',
     dot: 'bg-emerald-400',
