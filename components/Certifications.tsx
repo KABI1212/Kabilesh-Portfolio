@@ -3,7 +3,19 @@
 import { useRef, useState, useCallback } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 
-const certifications = [
+interface CertificationItem {
+  name: string
+  issuer: string
+  year: string
+  icon: string
+  accent: string
+  accentRgb: string
+  desc: string
+  file: string
+  skills: string[]
+}
+
+const certifications: CertificationItem[] = [
   {
     name: 'Generative AI Fluency',
     issuer: 'NASSCOM',
@@ -11,6 +23,7 @@ const certifications = [
     icon: '🤖',
     accent: '#60a5fa',
     accentRgb: '96,165,250',
+    file: '/certificates/generative-ai-fluency.pdf',
     desc: 'Validated fluency in Generative AI concepts, foundation models, and prompt engineering techniques.',
     skills: [
       'Generative AI',
@@ -26,6 +39,7 @@ const certifications = [
     icon: '🧪',
     accent: '#a78bfa',
     accentRgb: '167,139,250',
+    file: '/certificates/software-testing.pdf',
     desc: 'Completed a comprehensive course covering software testing methodologies, quality assurance, test case design, debugging, and software validation.',
     skills: [
       'Software Testing',
@@ -41,6 +55,7 @@ const certifications = [
     icon: '🔐',
     accent: '#34d399',
     accentRgb: '52,211,153',
+    file: '/certificates/cisco-cybersecurity.pdf',
     desc: 'Learned cybersecurity fundamentals including cyber threats, network security, digital safety, and best practices for protecting information systems.',
     skills: [
       'Cybersecurity',
@@ -56,6 +71,7 @@ const certifications = [
     icon: '🧠',
     accent: '#f59e0b',
     accentRgb: '245,158,11',
+    file: '/certificates/ai-fundamentals.pdf',
     desc: 'Developed a strong understanding of Artificial Intelligence concepts, machine learning fundamentals, AI applications, and ethical AI principles.',
     skills: [
       'Artificial Intelligence',
@@ -162,7 +178,7 @@ export default function Certifications() {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: i * 0.06, duration: 0.4 }}
                   whileHover={{ y: -4, scale: 1.02 }}
-                  className="relative rounded-2xl overflow-hidden group cursor-pointer"
+                  className="relative rounded-2xl overflow-hidden group flex flex-col justify-between"
                   style={{
                     background: `linear-gradient(145deg, rgba(${c.accentRgb},0.12) 0%, rgba(8,6,18,0.9) 100%)`,
                     border: `1px solid rgba(${c.accentRgb},0.2)`,
@@ -171,22 +187,80 @@ export default function Certifications() {
                   }}
                 >
                   {/* Hover glow */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <span className="text-3xl mb-4 block">{c.icon}</span>
-                  <h3 className="text-white font-bold text-lg mb-1">{c.name}</h3>
-                  <p className="text-sm font-medium mb-3" style={{ color: c.accent }}>{c.issuer} · {c.year}</p>
-                  <p className="text-xs leading-relaxed line-clamp-2" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                    {c.desc}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 mt-4">
-                    {c.skills.slice(0, 2).map((s) => (
-                      <span key={s} className="px-2 py-0.5 rounded text-[10px] font-medium" style={{ background: `rgba(${c.accentRgb},0.1)`, color: c.accent }}>
-                        {s}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-3xl block">{c.icon}</span>
+                      <span
+                        className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                        style={{
+                          background: `rgba(${c.accentRgb},0.15)`,
+                          color: c.accent,
+                          border: `1px solid rgba(${c.accentRgb},0.3)`,
+                        }}
+                      >
+                        {c.year}
                       </span>
-                    ))}
-                    {c.skills.length > 2 && (
-                      <span className="px-2 py-0.5 rounded text-[10px] text-white/30 bg-white/5">+{c.skills.length - 2}</span>
-                    )}
+                    </div>
+                    <h3 className="text-white font-bold text-lg mb-1">{c.name}</h3>
+                    <p className="text-sm font-medium mb-3" style={{ color: c.accent }}>
+                      {c.issuer}
+                    </p>
+                    <p className="text-xs leading-relaxed line-clamp-2 mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      {c.desc}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 mb-6">
+                      {c.skills.slice(0, 3).map((s) => (
+                        <span
+                          key={s}
+                          className="px-2 py-0.5 rounded text-[10px] font-medium"
+                          style={{ background: `rgba(${c.accentRgb},0.1)`, color: c.accent }}
+                        >
+                          {s}
+                        </span>
+                      ))}
+                      {c.skills.length > 3 && (
+                        <span className="px-2 py-0.5 rounded text-[10px] text-white/30 bg-white/5">
+                          +{c.skills.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 pt-3 border-t border-white/5">
+                    <a
+                      href={c.file}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-200"
+                      style={{
+                        background: `rgba(${c.accentRgb},0.15)`,
+                        border: `1px solid rgba(${c.accentRgb},0.35)`,
+                        color: c.accent,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = `rgba(${c.accentRgb},0.25)`
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = `rgba(${c.accentRgb},0.15)`
+                      }}
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                      <span>View Certificate</span>
+                    </a>
+                    <a
+                      href={c.file}
+                      download
+                      className="p-2.5 rounded-xl text-xs flex items-center justify-center transition-all duration-200 text-white/50 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10"
+                      title="Download PDF"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                    </a>
                   </div>
                 </motion.div>
               ))}
@@ -431,7 +505,7 @@ export default function Certifications() {
                         <span className="text-xs font-semibold" style={{ color: cert.accent }}>Certified</span>
                       </div>
                       <div
-                        className="w-full h-1.5 rounded-full overflow-hidden"
+                        className="w-full h-1.5 rounded-full overflow-hidden mb-8"
                         style={{ background: 'rgba(255,255,255,0.06)' }}
                       >
                         <motion.div
@@ -441,6 +515,38 @@ export default function Certifications() {
                           animate={{ width: '100%' }}
                           transition={{ duration: 0.8, ease: 'easeOut' }}
                         />
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex flex-wrap items-center gap-3">
+                        <a
+                          href={cert.file}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl font-bold text-xs transition-all duration-300 group shadow-lg cursor-pointer"
+                          style={{
+                            background: `linear-gradient(135deg, ${cert.accent}, rgba(${cert.accentRgb},0.85))`,
+                            color: '#080612',
+                            boxShadow: `0 8px 24px rgba(${cert.accentRgb},0.35)`,
+                          }}
+                        >
+                          <svg className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                          <span>View Certificate</span>
+                        </a>
+
+                        <a
+                          href={cert.file}
+                          download
+                          className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-xs text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300"
+                          title="Download Certificate PDF"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                          </svg>
+                          <span>Download</span>
+                        </a>
                       </div>
                     </div>
 
@@ -476,3 +582,4 @@ export default function Certifications() {
     </section>
   )
 }
+
