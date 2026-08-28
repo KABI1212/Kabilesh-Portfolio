@@ -4,8 +4,6 @@ import { motion } from 'framer-motion'
 import Logo from './logo/Logo'
 
 export default function Footer() {
-  const year = new Date().getFullYear()
-
   const socials = [
     {
       label: 'GitHub',
@@ -142,18 +140,10 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2"
+          className="mt-10 pt-6 border-t border-white/5 flex items-center justify-center text-center"
         >
-          <p className="text-[#333] text-xs">
-            © {year} Kabilesh K. All rights reserved.
-          </p>
-          <p className="text-[#333] text-xs">
-            Built with{' '}
-            <span className="text-blue-500/60">Next.js</span>
-            {' · '}
-            <span className="text-blue-500/60">Tailwind CSS</span>
-            {' · '}
-            <span className="text-blue-500/60">Framer Motion</span>
+          <p className="text-[#555] text-xs">
+            © 2026 Kabilesh K. All rights reserved.
           </p>
         </motion.div>
       </div>
