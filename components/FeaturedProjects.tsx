@@ -131,137 +131,7 @@ function PriceCheckerAnim({ isVisible }: { isVisible: boolean }) {
 }
 
 /* ─────────────────────────────────────────
-   PROJECT 2 — NEXA AI animation (AI interview)
-───────────────────────────────────────── */
-function AIPathfinderAnim({ isVisible }: { isVisible: boolean }) {
-  const nodes = [
-    { x: 50, y: 30, label: 'Resume', color: '#38bdf8' },
-    { x: 20, y: 60, label: 'Aptitude', color: '#60a5fa' },
-    { x: 80, y: 60, label: 'Coding', color: '#f97316' },
-    { x: 35, y: 85, label: 'Courses', color: '#34d399' },
-    { x: 65, y: 85, label: 'Certification', color: '#facc15' },
-  ]
-  const edges = [[0, 1], [0, 2], [1, 3], [2, 4], [1, 4], [2, 3]]
-  const [active, setActive] = useState(0)
-
-  useEffect(() => {
-    if (!isVisible) return
-    const t = setInterval(() => setActive((a) => (a + 1) % nodes.length), 1200)
-    return () => clearInterval(t)
-  }, [isVisible])
-
-  return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-      <svg viewBox="0 0 100 100" className="w-full h-full absolute inset-0">
-        <defs>
-          {nodes.map((n, i) => (
-            <radialGradient key={i} id={`ng${i}`}>
-              <stop offset="0%" stopColor={n.color} stopOpacity="0.6" />
-              <stop offset="100%" stopColor={n.color} stopOpacity="0" />
-            </radialGradient>
-          ))}
-        </defs>
-
-        {edges.map(([a, b], i) => (
-          <motion.line
-            key={i} x1={nodes[a].x} y1={nodes[a].y} x2={nodes[b].x} y2={nodes[b].y}
-            stroke="rgba(139,92,246,0.3)" strokeWidth="0.5"
-            initial={{ pathLength: 0 }} animate={isVisible ? { pathLength: 1 } : { pathLength: 0 }}
-            transition={{ duration: 1, delay: i * 0.15 }}
-          />
-        ))}
-
-        {edges.map(([a, b], i) => (
-          <motion.circle
-            key={`p${i}`}
-            cx={toFiniteNumber(nodes[a].x, 0)}
-            cy={toFiniteNumber(nodes[a].y, 0)}
-            r={toFiniteNumber(1.2, 1.2)}
-            fill={nodes[a].color}
-            opacity={0.8}
-            animate={isVisible ? { cx: [nodes[a].x, nodes[b].x], cy: [nodes[a].y, nodes[b].y] } : {}}
-            transition={{ duration: 1.5, delay: i * 0.3, repeat: Infinity, repeatDelay: 1 }}
-          />
-        ))}
-
-        {nodes.map((n, i) => (
-          <g key={i}>
-            {i === active && (
-              <motion.circle
-                cx={toFiniteNumber(n.x, 0)}
-                cy={toFiniteNumber(n.y, 0)}
-                r={toFiniteNumber(8, 8)}
-                fill={`url(#ng${i})`}
-                initial={{ r: 6 }}
-                animate={isVisible ? { r: [6, 10, 6] } : { r: 6 }}
-                transition={{ duration: 1, repeat: Infinity }}
-              />
-            )}
-            <circle
-              cx={toFiniteNumber(n.x, 0)}
-              cy={toFiniteNumber(n.y, 0)}
-              r={toFiniteNumber(i === active ? 5 : 5, 5)}
-              fill={i === active ? n.color : 'rgba(255,255,255,0.08)'}
-              stroke={n.color}
-              strokeWidth="1"
-            />
-            <text x={toFiniteNumber(n.x, 0)} y={toFiniteNumber(n.y + 10, 0)} textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="4.5" fontWeight="600">{n.label}</text>
-          </g>
-        ))}
-      </svg>
-
-      <motion.div
-        className="absolute top-4 right-4 rounded-xl px-3 py-2 text-center"
-        style={{
-          background: "rgba(56,189,248,0.12)",
-          border: "1px solid rgba(56,189,248,0.3)",
-          backdropFilter: "blur(8px)",
-        }}
-        animate={isVisible ? { scale: [1, 1.04, 1] } : {}}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <p className="text-[10px] text-white/40">
-          Career Readiness
-        </p>
-
-        <motion.p
-          className="text-lg font-black text-sky-400"
-          animate={isVisible ? { opacity: [0.7, 1, 0.7] } : {}}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          96%
-        </motion.p>
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-4 left-4 rounded-xl px-3 py-2 w-[170px]"
-        style={{
-          background: "rgba(167,139,250,0.12)",
-          border: "1px solid rgba(167,139,250,0.3)",
-          backdropFilter: "blur(8px)",
-        }}
-        initial={{ opacity: 0, x: -10 }}
-        animate={
-          isVisible
-            ? { opacity: 1, x: 0 }
-            : { opacity: 0, x: -10 }
-        }
-        transition={{ delay: 1.5 }}
-      >
-        <p className="text-[11px] text-blue-300 font-semibold mb-0.5">
-          📚 Courses & Certifications
-        </p>
-
-        <p className="text-[9px] text-white/50 whitespace-nowrap">
-          Learn • Complete • Get Certified
-        </p>
-      </motion.div>
-    </div>
-  )
-}
-
-/* ─────────────────────────────────────────
-   PROJECT 3 — SecureChain animation (blockchain)
+   PROJECT 2 — SecureChain animation (blockchain)
 ───────────────────────────────────────── */
 function BlockchainAnim({ isVisible }: { isVisible: boolean }) {
   const blocks = [
@@ -283,107 +153,123 @@ function BlockchainAnim({ isVisible }: { isVisible: boolean }) {
           </filter>
         </defs>
         {blocks.map((b, i) => (
+          <motion.line
+            key={i}
+            x1={toFiniteNumber(b.x, 0)}
+            y1={toFiniteNumber(b.y, 0)}
+            x2={toFiniteNumber(blocks[(i + 1) % blocks.length].x, 0)}
+            y2={toFiniteNumber(blocks[(i + 1) % blocks.length].y, 0)}
+            stroke="rgba(52,211,153,0.3)"
+            strokeWidth="0.8"
+            strokeDasharray="2 2"
+            initial={{ pathLength: 0 }}
+            animate={isVisible ? { pathLength: 1 } : { pathLength: 0 }}
+            transition={{ duration: 1.2, delay: i * 0.2 }}
+          />
+        ))}
+        {blocks.map((b, i) => (
           <g key={i}>
-            <motion.rect
-              x={b.x - 6} y={b.y - 6} width="12" height="12" rx="3"
-              fill={b.color} filter="url(#glow)"
-              initial={{ scale: 0, rotate: -45 }}
-              animate={isVisible ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -45 }}
-              transition={{ delay: i * 0.25, type: 'spring' }}
+            <rect
+              x={toFiniteNumber(b.x - 10, 0)}
+              y={toFiniteNumber(b.y - 7, 0)}
+              width={toFiniteNumber(20, 20)}
+              height={toFiniteNumber(14, 14)}
+              rx={toFiniteNumber(3, 3)}
+              fill="rgba(52,211,153,0.08)"
+              stroke={b.color}
+              strokeWidth="0.8"
+              filter="url(#glow)"
             />
-            <text x={b.x} y={b.y + 4} textAnchor="middle" fill="#0a0a0a" fontSize="7" fontWeight="bold">
+            <text
+              x={toFiniteNumber(b.x, 0)}
+              y={toFiniteNumber(b.y + 3, 0)}
+              textAnchor="middle"
+              fill={b.color}
+              fontSize="6"
+              fontWeight="bold"
+            >
               {b.label}
             </text>
-            {i > 0 && (
-              <motion.line
-                x1={blocks[i - 1].x} y1={blocks[i - 1].y} x2={b.x} y2={b.y}
-                stroke={b.color} strokeWidth="1.5" strokeDasharray="3 2"
-                initial={{ pathLength: 0 }} animate={isVisible ? { pathLength: 1 } : { pathLength: 0 }}
-                transition={{ delay: i * 0.2, duration: 0.8 }}
-              />
-            )}
           </g>
         ))}
       </svg>
       <motion.div
-        className="absolute top-2 right-2 rounded-lg px-2 py-1 text-xs"
-        style={{ background: 'rgba(52,211,153,0.15)', border: '1px solid rgba(52,211,153,0.3)' }}
-        animate={isVisible ? { scale: [1, 1.05, 1] } : {}} transition={{ duration: 1.5, repeat: Infinity }}
+        className="absolute bottom-4 right-4 rounded-xl px-3 py-2 text-xs"
+        style={{
+          background: 'rgba(52,211,153,0.1)',
+          border: '1px solid rgba(52,211,153,0.3)',
+          backdropFilter: 'blur(8px)',
+        }}
+        animate={isVisible ? { scale: [1, 1.05, 1] } : {}}
+        transition={{ duration: 2, repeat: Infinity }}
       >
-        🛡️ Secure
+        <p className="text-emerald-400 font-semibold">🔒 Block #847291</p>
+        <p className="text-white/40" style={{ fontSize: 9 }}>
+          Verified & Immutable
+        </p>
       </motion.div>
     </div>
   )
 }
 
 /* ─────────────────────────────────────────
-   PROJECT 4 — Impatsense Earthquake Prediction
+   PROJECT 3 — ImpactSense animation (earthquake)
 ───────────────────────────────────────── */
 function EarthquakeAnim({ isVisible }: { isVisible: boolean }) {
-  // deterministic pseudo‑random wave (no Math.random on every render)
-  const waveData = [0, 0.2, 0.5, 0.8, 0.4, 0.1, -0.2, -0.6, -0.4, 0, 0.3, 0.6, 0.9, 0.7, 0.2, -0.3, -0.7, -0.5, 0, 0.4]
-  const width = 320, height = 160
-  const stepX = width / (waveData.length - 1)
-  const points = waveData.map((v, i) => ({
-    x: i * stepX,
-    y: height / 2 - v * 50,
-  }))
-  const path = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ')
-
+  const waves = [1, 2, 3, 4]
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-      <svg viewBox={`0 0 ${width} ${height}`} className="w-full h-full">
-        <defs>
-          <linearGradient id="seismoGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#f97316" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#ef4444" stopOpacity="0.9" />
-          </linearGradient>
-        </defs>
-        {/* Grid */}
-        <g opacity="0.1" stroke="white" strokeWidth="0.5">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <line key={i} x1={0} y1={(i / 4) * height} x2={width} y2={(i / 4) * height} strokeDasharray="4 4" />
-          ))}
-        </g>
-
-        {/* Wave line */}
-        <motion.path
-          d={path} fill="none" stroke="url(#seismoGrad)" strokeWidth="2.5" strokeLinecap="round"
-          initial={{ pathLength: 0 }} animate={isVisible ? { pathLength: 1 } : { pathLength: 0 }}
-          transition={{ duration: 2.5, ease: 'easeInOut' }}
-        />
-
-        {/* Alert circle */}
-        <motion.circle
-          cx={toFiniteNumber(width - 30, 0)}
-          cy={toFiniteNumber(30, 0)}
-          r={toFiniteNumber(14, 14)}
-          fill="none"
-          stroke="#ef4444"
-          strokeWidth="2"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={isVisible ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-          transition={{ delay: 1.8 }}
-        />
-        <text x={toFiniteNumber(width - 30, 0)} y={toFiniteNumber(34, 0)} textAnchor="middle" fill="#ef4444" fontSize="8" fontWeight="bold">
-          ⚠️
-        </text>
-      </svg>
+      <div className="absolute inset-0 flex items-center justify-center">
+        {waves.map((w) => (
+          <motion.div
+            key={w}
+            className="absolute rounded-full border border-orange-500/40"
+            style={{ width: `${w * 22}%`, height: `${w * 22}%` }}
+            animate={
+              isVisible
+                ? {
+                    scale: [1, 1.15, 1],
+                    opacity: [0.6, 0.1, 0.6],
+                  }
+                : {}
+            }
+            transition={{
+              duration: 2.4,
+              repeat: Infinity,
+              delay: w * 0.4,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
       <motion.div
-        className="absolute bottom-4 left-4 rounded-xl px-3 py-2 text-xs"
-        style={{ background: 'rgba(249,115,22,0.15)', border: '1px solid rgba(249,115,22,0.3)', backdropFilter: 'blur(8px)' }}
-        initial={{ opacity: 0, x: -10 }} animate={isVisible ? { opacity: 1, x: 0 } : {}}
-        transition={{ delay: 2 }}
+        className="relative z-10 flex flex-col items-center justify-center w-16 h-16 rounded-full bg-orange-500/20 border border-orange-400/60 shadow-[0_0_24px_rgba(249,115,22,0.4)]"
+        animate={isVisible ? { scale: [1, 1.1, 1] } : {}}
+        transition={{ duration: 1.6, repeat: Infinity }}
       >
-        <p className="text-orange-400 font-semibold">📈 Predicted M5.8</p>
-        <p className="text-white/50" style={{ fontSize: 9 }}>Japan Trench · 14:32 UTC</p>
+        <span className="text-2xl">⚡</span>
+      </motion.div>
+      <motion.div
+        className="absolute top-4 left-4 rounded-xl px-3 py-2 text-xs"
+        style={{
+          background: 'rgba(249,115,22,0.1)',
+          border: '1px solid rgba(249,115,22,0.3)',
+          backdropFilter: 'blur(8px)',
+        }}
+        animate={isVisible ? { y: [0, -3, 0] } : {}}
+        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <p className="text-orange-400 font-semibold">📍 Magnitude 6.4</p>
+        <p className="text-white/40" style={{ fontSize: 9 }}>
+          Predicted epicenter detected
+        </p>
       </motion.div>
     </div>
   )
 }
 
 /* ─────────────────────────────────────────
-   Data — all four projects
+   Data — three projects
 ───────────────────────────────────────── */
 const featured = [
   {
@@ -404,24 +290,6 @@ const featured = [
       'Automated Task Handling',
     ],
     Animation: PriceCheckerAnim,
-  },
-  {
-    label: 'Featured Project',
-    title: 'NEXA AI — Career Guidance System',
-    description:
-      'Built an AI-based career guidance platform providing personalized recommendations based on user input, powered by a full OpenAI function-calling agent with 11 integrated tools.',
-    tech: ['Python', 'JavaScript', 'SQL', 'Machine Learning', 'Node.js/Express'],
-    link: 'https://github.com/KABI1212/NEXA-AI',
-    accentColor: 'text-blue-400',
-    borderColor: 'border-blue-500/20',
-    accentRgb: '56,189,248',
-    highlights: [
-      'Personalized Career Recommendations',
-      'OpenAI Function-Calling Agent (11 Tools)',
-      'React + Node.js/Express + MongoDB',
-      'Secure Credential Management',
-    ],
-    Animation: AIPathfinderAnim,
   },
   {
     label: 'Featured Project',
