@@ -11,7 +11,7 @@ const education = [
     period: '2023 – 2027',
     status: 'Final Year',
     description:
-      'Currently pursuing a Bachelor of Engineering in Computer Science with a strong interest in Artificial Intelligence, Full-Stack Development, and Software Engineering. CGPA: 7.30 (up to VI Semester).',
+      'Currently pursuing a Bachelor of Engineering in Computer Science with a strong interest in Artificial Intelligence, Full-Stack Development, and Software Engineering. CGPA: 7.38 (up to VI Semester).',
     gradient: 'from-blue-600/20 via-blue-500/10 to-indigo-600/20',
     border: 'border-blue-500/20',
     dot: 'bg-blue-400',
