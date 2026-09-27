@@ -219,6 +219,18 @@ export default function Hero() {
               >
                 Get In Touch
               </a>
+              <a
+                href="/Kabilesh_K_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="Kabilesh_K_Resume.pdf"
+                className="px-6 py-3 rounded-xl border border-blue-500/30 bg-blue-500/10 text-blue-300 font-semibold text-sm hover:bg-blue-500/20 hover:border-blue-400 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer inline-flex items-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Resume
+              </a>
             </motion.div>
 
             {/* Stats */}
@@ -229,9 +241,9 @@ export default function Hero() {
               className="flex gap-8 mt-12 justify-center lg:justify-start"
             >
               {[
-                { value: '4+', label: 'Projects Built' },
-                { value: '4', label: 'Internships' },
-                { value: '10+', label: 'Certifications' },
+                { value: '2', label: 'Featured Projects' },
+                { value: '2', label: 'Internships' },
+                { value: '2', label: 'Certifications' },
               ].map((stat) => (
                 <div key={stat.label} className="text-center lg:text-left">
                   <p className="text-2xl font-bold text-white">{stat.value}</p>

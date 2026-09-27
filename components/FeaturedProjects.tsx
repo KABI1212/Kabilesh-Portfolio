@@ -1,12 +1,7 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
+import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-
-const toFiniteNumber = (value: number | string | undefined, fallback: number) => {
-  const numeric = typeof value === 'number' ? value : Number(value)
-  return Number.isFinite(numeric) ? numeric : fallback
-}
 
 /* ─────────────────────────────────────────
    PROJECT 1 — NOVA AI chatbot-style animation
@@ -131,145 +126,135 @@ function PriceCheckerAnim({ isVisible }: { isVisible: boolean }) {
 }
 
 /* ─────────────────────────────────────────
-   PROJECT 2 — SecureChain animation (blockchain)
+   PROJECT 2 — Tourist Chatbot AI interactive animation
 ───────────────────────────────────────── */
-function BlockchainAnim({ isVisible }: { isVisible: boolean }) {
-  const blocks = [
-    { x: 30, y: 30, label: 'TX', color: '#34d399' },
-    { x: 60, y: 50, label: '🔗', color: '#60a5fa' },
-    { x: 30, y: 70, label: 'TX', color: '#f97316' },
-    { x: 60, y: 90, label: '🔗', color: '#a78bfa' },
+function TouristChatbotAnim({ isVisible }: { isVisible: boolean }) {
+  const messages = [
+    { from: 'bot', text: 'Hey there! Where would you like to explore next? 🌴' },
+    { from: 'user', text: 'Suggest top hill stations & build a 3-day itinerary.' },
+    { from: 'bot', text: 'Here’s a curated 3-day plan with scenic spots, stays & route details! 🗺️' },
   ]
+
+  const suggestions = ['🏞️ Top Sights', '🏨 Curated Stays', '☕ Local Cuisine', '🚗 Routes']
+
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-      <svg viewBox="0 0 100 100" className="w-full h-full absolute inset-0">
-        <defs>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-        {blocks.map((b, i) => (
-          <motion.line
-            key={i}
-            x1={toFiniteNumber(b.x, 0)}
-            y1={toFiniteNumber(b.y, 0)}
-            x2={toFiniteNumber(blocks[(i + 1) % blocks.length].x, 0)}
-            y2={toFiniteNumber(blocks[(i + 1) % blocks.length].y, 0)}
-            stroke="rgba(52,211,153,0.3)"
-            strokeWidth="0.8"
-            strokeDasharray="2 2"
-            initial={{ pathLength: 0 }}
-            animate={isVisible ? { pathLength: 1 } : { pathLength: 0 }}
-            transition={{ duration: 1.2, delay: i * 0.2 }}
-          />
-        ))}
-        {blocks.map((b, i) => (
-          <g key={i}>
-            <rect
-              x={toFiniteNumber(b.x - 10, 0)}
-              y={toFiniteNumber(b.y - 7, 0)}
-              width={toFiniteNumber(20, 20)}
-              height={toFiniteNumber(14, 14)}
-              rx={toFiniteNumber(3, 3)}
-              fill="rgba(52,211,153,0.08)"
-              stroke={b.color}
-              strokeWidth="0.8"
-              filter="url(#glow)"
-            />
-            <text
-              x={toFiniteNumber(b.x, 0)}
-              y={toFiniteNumber(b.y + 3, 0)}
-              textAnchor="middle"
-              fill={b.color}
-              fontSize="6"
-              fontWeight="bold"
+      <motion.div
+        className="absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.8 }}
+        style={{
+          background:
+            'radial-gradient(circle at 20% 20%, rgba(52,211,153,0.25), transparent 35%), radial-gradient(circle at 80% 20%, rgba(6,182,212,0.22), transparent 30%), radial-gradient(circle at 50% 100%, rgba(16,185,129,0.18), transparent 45%)',
+        }}
+      />
+
+      <motion.div
+        className="relative w-[84%] h-[84%] rounded-[30px] border border-emerald-400/25 bg-slate-950/90 shadow-[0_0_0_1px_rgba(52,211,153,0.1),0_20px_60px_rgba(16,185,129,0.18)] flex flex-col justify-between p-4"
+        initial={{ opacity: 0, scale: 0.94, y: 12 }}
+        animate={isVisible ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.94, y: 12 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-emerald-400/15 pb-3">
+          <div className="flex items-center gap-2">
+            <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-emerald-400/15 ring-1 ring-emerald-300/40">
+              <span className="text-sm">🧭</span>
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.22em] text-emerald-200/90 font-bold">
+                Tourist Chatbot
+              </div>
+              <div className="text-[9px] text-emerald-100/60 flex items-center gap-1">
+                <span>✨ Gemini AI Travel Guide</span>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-2 py-1 text-[9px] text-emerald-200">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            active
+          </div>
+        </div>
+
+        {/* Chat Messages */}
+        <div className="space-y-2.5 my-auto py-2">
+          {messages.map((message, i) => (
+            <motion.div
+              key={`${message.from}-${i}`}
+              className={`flex ${message.from === 'bot' ? 'justify-start' : 'justify-end'}`}
+              initial={{ opacity: 0, x: message.from === 'bot' ? -12 : 12, y: 6 }}
+              animate={isVisible ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: message.from === 'bot' ? -12 : 12, y: 6 }}
+              transition={{ duration: 0.45, delay: 0.2 + i * 0.18 }}
             >
-              {b.label}
-            </text>
-          </g>
-        ))}
-      </svg>
+              <div
+                className={`max-w-[82%] rounded-2xl px-3 py-2 text-[10.5px] leading-relaxed ${
+                  message.from === 'bot'
+                    ? 'border border-emerald-400/20 bg-emerald-500/10 text-emerald-50'
+                    : 'bg-white/10 text-white/90 border border-white/10'
+                }`}
+              >
+                {message.text}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Suggestion pills / Itinerary teaser */}
+        <div className="space-y-2">
+          <div className="flex items-center gap-1.5 overflow-hidden">
+            {suggestions.map((item, idx) => (
+              <span
+                key={idx}
+                className="text-[9px] px-2 py-0.5 rounded-full bg-emerald-400/10 border border-emerald-400/20 text-emerald-200/80 whitespace-nowrap"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+          <div className="flex items-center justify-between text-[10px] text-emerald-100/70 border-t border-emerald-400/10 pt-2">
+            <span className="flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <span>Smart Travel Recommendations</span>
+            </span>
+            <span className="font-mono text-[9px] text-emerald-300">Django + PyMongo</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Floating Badges */}
       <motion.div
-        className="absolute bottom-4 right-4 rounded-xl px-3 py-2 text-xs"
+        className="absolute top-4 right-4 rounded-xl px-3 py-2 text-xs"
         style={{
-          background: 'rgba(52,211,153,0.1)',
-          border: '1px solid rgba(52,211,153,0.3)',
+          background: 'rgba(52,211,153,0.12)',
+          border: '1px solid rgba(52,211,153,0.35)',
           backdropFilter: 'blur(8px)',
         }}
-        animate={isVisible ? { scale: [1, 1.05, 1] } : {}}
-        transition={{ duration: 2, repeat: Infinity }}
+        animate={isVisible ? { y: [0, -4, 0], scale: [1, 1.03, 1] } : { y: 0, scale: 1 }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <p className="text-emerald-400 font-semibold">🔒 Block #847291</p>
-        <p className="text-white/40" style={{ fontSize: 9 }}>
-          Verified & Immutable
-        </p>
+        <p className="text-emerald-300 font-semibold">🗺️ 3-Day Trip Ready</p>
+        <p className="text-white/55" style={{ fontSize: 9 }}>Curated destination routes</p>
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-4 left-4 rounded-xl px-3 py-1.5 text-xs hidden sm:block"
+        style={{
+          background: 'rgba(6,182,212,0.12)',
+          border: '1px solid rgba(6,182,212,0.3)',
+          backdropFilter: 'blur(8px)',
+        }}
+        animate={isVisible ? { y: [0, 3, 0] } : { y: 0 }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <p className="text-cyan-300 font-medium text-[10px]">✨ Powered by Gemini AI</p>
       </motion.div>
     </div>
   )
 }
 
 /* ─────────────────────────────────────────
-   PROJECT 3 — ImpactSense animation (earthquake)
-───────────────────────────────────────── */
-function EarthquakeAnim({ isVisible }: { isVisible: boolean }) {
-  const waves = [1, 2, 3, 4]
-  return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 flex items-center justify-center">
-        {waves.map((w) => (
-          <motion.div
-            key={w}
-            className="absolute rounded-full border border-orange-500/40"
-            style={{ width: `${w * 22}%`, height: `${w * 22}%` }}
-            animate={
-              isVisible
-                ? {
-                    scale: [1, 1.15, 1],
-                    opacity: [0.6, 0.1, 0.6],
-                  }
-                : {}
-            }
-            transition={{
-              duration: 2.4,
-              repeat: Infinity,
-              delay: w * 0.4,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-      </div>
-      <motion.div
-        className="relative z-10 flex flex-col items-center justify-center w-16 h-16 rounded-full bg-orange-500/20 border border-orange-400/60 shadow-[0_0_24px_rgba(249,115,22,0.4)]"
-        animate={isVisible ? { scale: [1, 1.1, 1] } : {}}
-        transition={{ duration: 1.6, repeat: Infinity }}
-      >
-        <span className="text-2xl">⚡</span>
-      </motion.div>
-      <motion.div
-        className="absolute top-4 left-4 rounded-xl px-3 py-2 text-xs"
-        style={{
-          background: 'rgba(249,115,22,0.1)',
-          border: '1px solid rgba(249,115,22,0.3)',
-          backdropFilter: 'blur(8px)',
-        }}
-        animate={isVisible ? { y: [0, -3, 0] } : {}}
-        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <p className="text-orange-400 font-semibold">📍 Magnitude 6.4</p>
-        <p className="text-white/40" style={{ fontSize: 9 }}>
-          Predicted epicenter detected
-        </p>
-      </motion.div>
-    </div>
-  )
-}
-
-/* ─────────────────────────────────────────
-   Data — three projects
+   Data — Two Featured Projects
 ───────────────────────────────────────── */
 const featured = [
   {
@@ -293,39 +278,21 @@ const featured = [
   },
   {
     label: 'Featured Project',
-    title: 'Blockchain & Cybersecurity:Securechain',
+    title: 'Tourist Chatbot — Smart Travel Assistant',
     description:
-      'Team project delivering a blockchain-based cybersecurity system providing secure transactions, decentralized authentication, and intelligent threat detection through hashing and encryption.',
-    tech: ['Python', 'Blockchain', 'Cryptography', 'Flask', 'React', 'Solidity'],
-    link: 'https://github.com/KABI1212/Blockchain-and-Cybersecurity-SecureChain',
+      'Intelligent tourism platform and AI travel assistant powered by Google Gemini AI and Django. Provides personalized destination recommendations, interactive multi-day itinerary generation, curated hotel and attraction guidance, and dynamic tourist query handling with MongoDB.',
+    tech: ['Python', 'Django', 'Google Gemini AI', 'MongoDB', 'REST API', 'JavaScript'],
+    link: 'https://github.com/KABI1212/tourist-chatbot',
     accentColor: 'text-emerald-400',
     borderColor: 'border-emerald-500/20',
     accentRgb: '52,211,153',
     highlights: [
-      'Secure Transactions via Hashing & Encryption',
-      'Decentralized Authentication',
-      'Intelligent Threat Detection',
-      'Flask + React + Solidity Smart Contracts',
+      'Gemini AI Destination Recommendations & Smart Routing',
+      'Automated Multi-Day Itinerary Generation',
+      'Django REST Framework & PyMongo Database Architecture',
+      'Dynamic Attraction, Hotel, Cuisine & Transport Guide',
     ],
-    Animation: BlockchainAnim,
-  },
-  {
-    label: 'Featured Project',
-    title: 'Impatsense — Earthquake Prediction',
-    description:
-      'AI-driven earthquake prediction model analyzing seismic data to forecast magnitude and location. Built with Python and deep learning, achieving high accuracy on historical datasets.',
-    tech: ['Python', 'TensorFlow', 'Seismic Data', 'LSTM', 'Geospatial Analysis'],
-    link: 'https://github.com/KABI1212/ImpactSense-Earthquake-Impact-Prediction-.git',
-    accentColor: 'text-orange-400',
-    borderColor: 'border-orange-500/20',
-    accentRgb: '249,115,22',
-    highlights: [
-      'Real-time seismic data processing',
-      'LSTM-based magnitude prediction',
-      'Geospatial visualisation dashboard',
-      'Early warning alert system',
-    ],
-    Animation: EarthquakeAnim,
+    Animation: TouristChatbotAnim,
   },
 ]
 
@@ -336,7 +303,6 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
   const cardRef = useRef(null)
   const isInView = useInView(cardRef, { once: true, margin: '-120px' })
   const { Animation } = project
-  const isNovaAi = project.title === 'NOVA AI — Intelligent Assistant'
 
   return (
     <motion.div
@@ -376,7 +342,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={isNovaAi ? { y: -2, scale: 1.02 } : undefined}
+            whileHover={{ y: -2, scale: 1.02 }}
             className={`inline-flex items-center gap-2 ${project.accentColor} text-sm font-semibold hover:opacity-80 transition-opacity group`}
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -389,7 +355,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
               href={project.liveLink}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={isNovaAi ? { y: -2, scale: 1.02 } : undefined}
+              whileHover={{ y: -2, scale: 1.02 }}
               className="inline-flex items-center gap-2 text-emerald-400 text-sm font-semibold hover:opacity-80 transition-opacity group"
             >
               <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -406,7 +372,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
         href={project.liveLink || project.link}
         target="_blank"
         rel="noopener noreferrer"
-        whileHover={isNovaAi ? { y: -4, scale: 1.01 } : undefined}
+        whileHover={{ y: -4, scale: 1.01 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
         className="relative group cursor-pointer block"
       >
@@ -415,7 +381,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
           style={{ background: `radial-gradient(ellipse, rgba(${project.accentRgb},0.25) 0%, transparent 70%)` }}
         />
         <div
-          className={`relative rounded-2xl overflow-hidden aspect-[4/3] transition-all duration-500 ${isNovaAi ? 'group-hover:shadow-[0_0_0_1px_rgba(56,189,248,0.25),0_22px_70px_rgba(56,189,248,0.2)]' : ''}`}
+          className="relative rounded-2xl overflow-hidden aspect-[4/3] transition-all duration-500 group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.15),0_22px_70px_rgba(0,0,0,0.5)]"
           style={{
             background: `linear-gradient(135deg, rgba(${project.accentRgb},0.1) 0%, rgba(8,6,18,0.95) 100%)`,
             border: `1.5px solid rgba(${project.accentRgb},0.25)`,

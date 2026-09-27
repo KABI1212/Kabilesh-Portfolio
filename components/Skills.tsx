@@ -12,6 +12,8 @@ const skills = [
   { name: 'SQL', icon: '🗄️' },
   { name: 'MySQL', icon: '🗄️' },
   { name: 'MongoDB', icon: '🍃' },
+  { name: 'Django', icon: '🎯' },
+  { name: 'FastAPI', icon: '⚡' },
   { name: 'NLP', icon: '🧠' },
   { name: 'Generative AI', icon: '🤖' },
   { name: 'Prompt Engineering', icon: '💬' },

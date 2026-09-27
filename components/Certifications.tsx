@@ -48,38 +48,6 @@ const certifications: CertificationItem[] = [
       'Validation',
     ],
   },
-  {
-    name: 'Introduction to Cybersecurity',
-    issuer: 'Cisco',
-    year: '2026',
-    icon: '🔐',
-    accent: '#34d399',
-    accentRgb: '52,211,153',
-    file: '/certificates/cisco-cybersecurity.pdf',
-    desc: 'Learned cybersecurity fundamentals including cyber threats, network security, digital safety, and best practices for protecting information systems.',
-    skills: [
-      'Cybersecurity',
-      'Network Security',
-      'Risk Management',
-      'Digital Security',
-    ],
-  },
-  {
-    name: 'AI Fundamentals: Foundations for Understanding AI',
-    issuer: 'Cisco',
-    year: '2026',
-    icon: '🧠',
-    accent: '#f59e0b',
-    accentRgb: '245,158,11',
-    file: '/certificates/ai-fundamentals.pdf',
-    desc: 'Developed a strong understanding of Artificial Intelligence concepts, machine learning fundamentals, AI applications, and ethical AI principles.',
-    skills: [
-      'Artificial Intelligence',
-      'Machine Learning',
-      'AI Concepts',
-      'Ethical AI',
-    ],
-  },
 ]
 
 export default function Certifications() {

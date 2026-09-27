@@ -5,14 +5,14 @@ import { motion, useInView } from 'framer-motion'
 
 const experiences = [
   {
-    role: 'AI Virtual Intern (Batch B-13)',
+    role: 'Virtual Internship 6.0 (Batch B-13)',
     company: 'Infosys Springboard',
     location: 'Remote',
-    period: '2026',
-    status: 'AI Virtual Internship',
+    period: 'Feb 2026 – Apr 2026',
+    status: 'AI/ML Internship',
     description:
-      'Strengthened artificial intelligence, software development, and problem-solving skills through project-based learning. Hands-on experience developing AI models, prompt engineering workflows, and practical software solutions.',
-    highlights: ['AI/ML', 'Generative AI', 'Python', 'Software Development', 'Problem Solving'],
+      'Improved software development and problem-solving skills through project-based learning in machine learning. Gained practical knowledge of machine learning algorithms such as Random Forest and XGBoost.',
+    highlights: ['Machine Learning', 'Random Forest', 'XGBoost', 'Python', 'Problem Solving'],
     gradient: 'from-blue-600/20 via-blue-500/10 to-indigo-600/20',
     border: 'border-blue-500/20',
     dot: 'bg-blue-400',
@@ -21,29 +21,13 @@ const experiences = [
     accent: '#60a5fa',
   },
   {
-    role: 'SQL Intern',
-    company: 'InternCertify',
-    location: 'Remote',
-    period: 'Dec 2025 – Jan 2026',
-    status: 'Database Internship',
-    description:
-      'Mastered complex relational database queries, schema design, data optimization, and data management fundamentals. Worked with relational databases to ensure data integrity and query efficiency.',
-    highlights: ['SQL', 'MySQL', 'Database Management', 'Query', 'DBMS'],
-    gradient: 'from-amber-600/20 via-yellow-500/10 to-orange-600/20',
-    border: 'border-yellow-500/20',
-    dot: 'bg-yellow-400',
-    dotGlow: 'rgba(245,158,11,0.35)',
-    badge: 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20',
-    accent: '#f59e0b',
-  },
-  {
     role: 'Frontend Development Intern',
     company: 'Pumo Technovation',
     location: 'Coimbatore, Tamil Nadu',
     period: 'Jan 2025',
     status: 'Frontend Internship',
     description:
-      'Gained hands-on experience implementing modern frontend concepts, UI design patterns, and responsive layouts for real-world projects. Enhanced user experience using web standards and CSS framework utilities.',
+      'Gained hands-on experience in frontend development by working on real-time web projects. Learned to create user-friendly, responsive web pages using HTML, CSS, and JavaScript.',
     highlights: ['HTML5/CSS3', 'JavaScript', 'Frontend Design', 'UI/UX'],
     gradient: 'from-cyan-600/20 via-blue-500/10 to-indigo-600/20',
     border: 'border-cyan-500/20',
@@ -51,22 +35,6 @@ const experiences = [
     dotGlow: 'rgba(56,189,248,0.35)',
     badge: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20',
     accent: '#38bdf8',
-  },
-  {
-    role: 'Web Development Intern',
-    company: "Let's GameTech",
-    location: 'Remote',
-    period: 'Jun 2024 – Jul 2024',
-    status: 'Web Internship',
-    description:
-      'Built a solid foundation in web development using HTML, CSS, and JavaScript. Implemented dynamic DOM interactions, responsive page structures, and key web features.',
-    highlights: ['HTML', 'CSS', 'JavaScript', 'Web Fundamentals'],
-    gradient: 'from-emerald-600/20 via-teal-500/10 to-cyan-600/20',
-    border: 'border-emerald-500/20',
-    dot: 'bg-emerald-400',
-    dotGlow: 'rgba(52,211,153,0.35)',
-    badge: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20',
-    accent: '#34d399',
   },
 ]
 

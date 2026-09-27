@@ -5,13 +5,18 @@ import { motion, useInView } from 'framer-motion'
 
 const education = [
   {
-    degree: 'B.E. — Computer Science and Engineering',
+    degree: 'B.E. Computer Science and Engineering',
     institution: 'V.S.B Engineering College',
+    university: 'Anna University',
     location: 'Karur, Tamil Nadu',
     period: '2023 – 2027',
     status: 'Final Year',
+    studyType: 'Full Time',
+    highlight: 'CGPA: 7.38 (Till VI Semester)',
+    highlightIcon: '🏆',
+    highlightBadge: 'text-amber-300 bg-amber-400/10 border-amber-400/30 shadow-[0_0_16px_rgba(251,191,36,0.2)]',
     description:
-      'Currently pursuing a Bachelor of Engineering in Computer Science with a strong interest in Artificial Intelligence, Full-Stack Development, and Software Engineering. CGPA: 7.38 (up to VI Semester).',
+      'Pursuing Bachelor of Engineering in Computer Science and Engineering (Full Time) at V.S.B Engineering College, affiliated with Anna University. Maintaining consistent academic performance with CGPA: 7.38 (Till VI Semester).',
     gradient: 'from-blue-600/20 via-blue-500/10 to-indigo-600/20',
     border: 'border-blue-500/20',
     dot: 'bg-blue-400',
@@ -20,28 +25,38 @@ const education = [
     accent: '#60a5fa',
   },
   {
-    degree: 'Higher Secondary Certificate (HSC)',
+    degree: 'HSC — Veveaham Matric Higher Secondary School',
     institution: 'Veveaham Matric Higher Secondary School',
+    board: 'Tamil Nadu State Board',
     location: 'Dharapuram, Tamil Nadu',
     period: '2023',
     status: 'Completed',
+    studyType: 'Full Time',
+    highlight: 'Percentage: 68.33%',
+    highlightIcon: '📊',
+    highlightBadge: 'text-cyan-300 bg-cyan-400/10 border-cyan-400/30 shadow-[0_0_16px_rgba(34,211,238,0.2)]',
     description:
-      'Successfully completed Higher Secondary education, building a solid academic foundation that strengthened analytical thinking and problem-solving skills.',
+      'Completed Higher Secondary education (Full Time) under Tamil Nadu State Board with 68.33%, building strong foundations in mathematics, physical sciences, and analytical problem-solving.',
     gradient: 'from-blue-600/20 via-cyan-500/10 to-teal-600/20',
-    border: 'border-blue-500/20',
-    dot: 'bg-blue-400',
-    dotGlow: 'rgba(96,165,250,0.3)',
-    badge: 'text-blue-400 bg-blue-500/10 border-blue-500/20',
+    border: 'border-cyan-500/20',
+    dot: 'bg-cyan-400',
+    dotGlow: 'rgba(56,189,248,0.3)',
+    badge: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20',
     accent: '#38bdf8',
   },
   {
-    degree: 'Secondary School Leaving Certificate (SSLC)',
+    degree: 'SSLC — Veveaham Matric Higher Secondary School',
     institution: 'Veveaham Matric Higher Secondary School',
+    board: 'Tamil Nadu State Board',
     location: 'Dharapuram, Tamil Nadu',
     period: '2021',
     status: 'Completed',
+    studyType: 'Full Time',
+    highlight: 'Result: Pass',
+    highlightIcon: '🎯',
+    highlightBadge: 'text-emerald-300 bg-emerald-400/10 border-emerald-400/30 shadow-[0_0_16px_rgba(52,211,153,0.2)]',
     description:
-      'Successfully completed secondary education, developing strong academic fundamentals and a passion for technology and continuous learning.',
+      'Completed Secondary School Leaving Certificate (Full Time) education under Tamil Nadu State Board with Pass result, developing disciplined academic rigor and foundational technical interest.',
     gradient: 'from-emerald-600/20 via-green-500/10 to-teal-600/20',
     border: 'border-emerald-500/20',
     dot: 'bg-emerald-400',
@@ -205,11 +220,21 @@ export default function Education() {
                         {item.degree}
                       </h3>
 
-                      <p className="text-[#888] text-sm font-medium">
-                        {item.institution}
+                      <p className="text-[#888] text-sm font-medium flex items-center flex-wrap gap-2">
+                        <span>{item.institution}</span>
+                        {item.university && (
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 font-normal">
+                            {item.university}
+                          </span>
+                        )}
+                        {item.board && (
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 font-normal">
+                            {item.board}
+                          </span>
+                        )}
                       </p>
 
-                      <p className="text-[#555] text-xs mt-0.5 flex items-center gap-1">
+                      <p className="text-[#555] text-xs mt-1 flex items-center gap-1">
                         <svg
                           className="w-3 h-3"
                           fill="none"
@@ -235,11 +260,22 @@ export default function Education() {
                     </div>
 
                     <div className="flex flex-col items-start sm:items-end gap-2 flex-shrink-0">
-                      <span
-                        className={`px-3 py-1 rounded-full border text-xs font-semibold ${item.badge} backdrop-blur-sm`}
-                      >
-                        {item.status}
-                      </span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span
+                          className={`px-3 py-1 rounded-full border text-xs font-bold tracking-wide ${item.highlightBadge} backdrop-blur-sm flex items-center gap-1.5`}
+                        >
+                          <span>{item.highlightIcon}</span>
+                          {item.highlight}
+                        </span>
+                        <span
+                          className={`px-3 py-1 rounded-full border text-xs font-semibold ${item.badge} backdrop-blur-sm`}
+                        >
+                          {item.status}
+                        </span>
+                        <span className="px-2.5 py-1 rounded-full border text-xs font-medium text-slate-300 bg-white/5 border-white/10 backdrop-blur-sm">
+                          {item.studyType}
+                        </span>
+                      </div>
 
                       <span className="text-[#555] text-xs font-mono">
                         {item.period}
@@ -247,9 +283,24 @@ export default function Education() {
                     </div>
                   </div>
 
-                  <p className="text-[#777] text-sm leading-relaxed">
+                  <p className="text-[#777] text-sm leading-relaxed mb-4">
                     {item.description}
                   </p>
+
+                  {/* Prominent Resume Highlight Callout */}
+                  <div className="pt-3 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 text-xs text-[#888]">
+                      <span className="flex items-center gap-1.5 font-medium">
+                        <span className={`w-1.5 h-1.5 rounded-full ${item.dot}`} />
+                        {item.board ? `Board: ${item.board}` : `Affiliation: Anna University`}
+                      </span>
+                      <span className="text-white/20">•</span>
+                      <span className="text-slate-300 font-medium">{item.studyType}</span>
+                    </div>
+                    <span className={`text-xs font-mono font-bold px-3 py-1 rounded-md border ${item.highlightBadge}`}>
+                      {item.highlight}
+                    </span>
+                  </div>
                 </motion.div>
               </motion.div>
             ))}
