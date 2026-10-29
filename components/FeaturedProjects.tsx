@@ -283,6 +283,7 @@ const featured = [
       'Intelligent tourism platform and AI travel assistant powered by Google Gemini AI and Django. Provides personalized destination recommendations, interactive multi-day itinerary generation, curated hotel and attraction guidance, and dynamic tourist query handling with MongoDB.',
     tech: ['Python', 'Django', 'Google Gemini AI', 'MongoDB', 'REST API', 'JavaScript'],
     link: 'https://github.com/KABI1212/tourist-chatbot',
+    liveLink: 'https://tourist-chatbot-mu.vercel.app/',
     accentColor: 'text-emerald-400',
     borderColor: 'border-emerald-500/20',
     accentRgb: '52,211,153',
