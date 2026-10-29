@@ -159,11 +159,10 @@ export default function About() {
               className="text-[#888] leading-relaxed text-sm sm:text-base"
             >
               Final-year Computer Science Engineering student at{' '}
-              <span className="text-white font-medium">V.S.B Engineering College, Karur</span>,
-              passionate about Artificial Intelligence and Software Development. Skilled in Java,
-              NLP, and Generative AI with hands-on experience building AI assistants and
-              blockchain-based applications. Currently in placement season, eager to apply
-              technical skills to innovative real-world projects.
+              <span className="text-white font-medium">
+                V.S.B Engineering College, Karur
+              </span>
+              , passionate about building intelligent applications and solving real-world problems through technology. Exploring Artificial Intelligence, Generative AI, and full-stack development to create practical, user-focused software solutions.
             </motion.p>
 
             {/* Highlights Grid */}
