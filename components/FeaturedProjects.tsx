@@ -166,9 +166,6 @@ function TouristChatbotAnim({ isVisible }: { isVisible: boolean }) {
               <div className="text-[10px] uppercase tracking-[0.22em] text-emerald-200/90 font-bold">
                 Tourist Chatbot
               </div>
-              <div className="text-[9px] text-emerald-100/60 flex items-center gap-1">
-                <span>✨ Gemini AI Travel Guide</span>
-              </div>
             </div>
           </div>
           <div className="flex items-center gap-1.5 rounded-full bg-emerald-400/10 px-2 py-1 text-[9px] text-emerald-200">
@@ -217,7 +214,7 @@ function TouristChatbotAnim({ isVisible }: { isVisible: boolean }) {
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
               <span>Smart Travel Recommendations</span>
             </span>
-            <span className="font-mono text-[9px] text-emerald-300">Django + PyMongo</span>
+            <span className="font-mono text-[9px] text-emerald-300">MongoDB</span>
           </div>
         </div>
       </motion.div>
@@ -247,7 +244,7 @@ function TouristChatbotAnim({ isVisible }: { isVisible: boolean }) {
         animate={isVisible ? { y: [0, 3, 0] } : { y: 0 }}
         transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
       >
-        <p className="text-cyan-300 font-medium text-[10px]">✨ Powered by Gemini AI</p>
+        <p className="text-cyan-300 font-medium text-[10px]">✨ Intelligent Travel Planning & Concierge</p>
       </motion.div>
     </div>
   )
@@ -259,39 +256,39 @@ function TouristChatbotAnim({ isVisible }: { isVisible: boolean }) {
 const featured = [
   {
     label: 'Featured Project',
-    title: 'NOVA AI — Intelligent Assistant',
+    title: 'NOVA AI – Intelligent Assistant',
     description:
-      'Developed an AI-powered assistant integrating multiple AI providers for automated response generation and task handling. Deployed as a full-stack production app with a FastAPI backend and React frontend.',
-    tech: ['Python', 'FastAPI', 'React', 'REST APIs', 'Generative AI', 'Prompt Engineering'],
+      "An intelligent AI orchestration platform that understands the user's goal and selects the appropriate AI capabilities, executes multi-step tasks, verifies the results, and presents one final solution.",
+    tech: ['HTML', 'CSS', 'JavaScript', 'React.js', 'MongoDB'],
     link: 'https://github.com/KABI1212/NOVA-AI',
     liveLink: 'https://nova-ai-virid-three.vercel.app/',
     accentColor: 'text-blue-400',
     borderColor: 'border-blue-500/20',
     accentRgb: '37,99,235',
     highlights: [
-      'Multi-Provider AI Response Generation',
-      'FastAPI Backend + React Frontend',
-      'Deployed on Vercel & Render',
-      'Automated Task Handling',
+      'Goal Understanding & AI Capability Selection',
+      'Multi-Step Automated Task Execution',
+      'Intelligent Result Verification',
+      'Unified Final Solution Delivery',
     ],
     Animation: PriceCheckerAnim,
   },
   {
     label: 'Featured Project',
-    title: 'Tourist Chatbot — Smart Travel Assistant',
+    title: 'Tourist Chatbot',
     description:
-      'Intelligent tourism platform and AI travel assistant powered by Google Gemini AI and Django. Provides personalized destination recommendations, interactive multi-day itinerary generation, curated hotel and attraction guidance, and dynamic tourist query handling with MongoDB.',
-    tech: ['Python', 'Django', 'Google Gemini AI', 'MongoDB', 'REST API', 'JavaScript'],
+      'Developed an AI-powered tourist chatbot providing travel information on destinations, transportation, accommodation, and estimated costs.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'MongoDB'],
     link: 'https://github.com/KABI1212/tourist-chatbot',
     liveLink: 'https://tourist-chatbot-mu.vercel.app/',
     accentColor: 'text-emerald-400',
     borderColor: 'border-emerald-500/20',
     accentRgb: '52,211,153',
     highlights: [
-      'Gemini AI Destination Recommendations & Smart Routing',
-      'Automated Multi-Day Itinerary Generation',
-      'Django REST Framework & PyMongo Database Architecture',
-      'Dynamic Attraction, Hotel, Cuisine & Transport Guide',
+      'Destination Information & Discovery',
+      'Transportation Options & Guidance',
+      'Accommodation & Stay Recommendations',
+      'Estimated Travel Cost Calculation',
     ],
     Animation: TouristChatbotAnim,
   },
