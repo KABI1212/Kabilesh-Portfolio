@@ -185,8 +185,11 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.65 }}
               className="text-[#666] text-sm sm:text-base max-w-md mx-auto lg:mx-0 mb-8 leading-relaxed"
             >
-              Final-Year B.E. CSE Student at V.S.B Engineering College, Karur.
-              Building AI assistants, blockchain solutions and practical software applications with Java, Python and web technologies.
+              Final-year Computer Science Engineering student at{' '}
+              <span className="text-white font-medium">
+                V.S.B Engineering College, Karur
+              </span>
+              , passionate about building intelligent applications and solving real-world problems through technology. Exploring Artificial Intelligence, Generative AI, and full-stack development to create practical, user-focused software solutions.
             </motion.p>
 
             <motion.div
